@@ -34,14 +34,14 @@
 
 ## options テーブル
 
-| Column         | Type       | Options     |
-| -------------- | ---------- | ----------- |
-| theme_color_id | integer    | null: false |
-| only_table     | boolean?    | null: false |
-| time_zone_exist | boolean?    | null: false |
-| cancel_able    | boolean?    | null: false |
-| cancel_limit   | time?       | null: false |
-| store          | references | null: false, foreign_key: true |
+| Column          | Type       | Options     |
+| --------------- | ---------- | ----------- |
+| theme_color_id  | integer    | null: false |
+| only_table      | boolean    | null: false |
+| time_zone_exist | boolean    | null: false |
+| cancel_able     | boolean    | null: false |
+| cancel_limit    | time       | null: false |
+| store           | references | null: false, foreign_key: true |
 
 ## Association
 
@@ -53,7 +53,7 @@
 | Column          | Type       | Options     |
 | --------------- | ---------- | ----------- |
 | rsv_date        | date       | null: false |
-| rsv_time_zone   | time?      | null: false |
+| rsv_time_zone   | time       | null: false |
 | service_type_id | integer    | null: false |
 | upper_people_n  | integer    | null: false |
 | fee             | integer    | null: false |
