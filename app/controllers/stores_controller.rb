@@ -1,6 +1,6 @@
 class StoresController < ApplicationController
   before_action :authenticate_user! #, except: []
-  before_action :set_store, only: [:show]
+  before_action :set_store, only: [:show, :edit, :update, :destroy]
 
   def index
     @stores = Store.where(user_id: current_user.id)
@@ -21,6 +21,23 @@ class StoresController < ApplicationController
   
   def show
   end
+
+  def edit
+  end
+
+  def update
+    if @store.update(store_params)
+      redirect_to store_path(@store.id)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy # 「本当に削除しますか？」の確認を追加したい！JavaScriptで
+    @store.destroy
+    redirect_to root_path
+  end
+
 
   private
 

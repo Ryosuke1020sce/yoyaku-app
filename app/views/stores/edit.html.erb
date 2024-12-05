@@ -1,7 +1,9 @@
 
-<div>店舗の新規登録</div>
+<div>店舗の編集</div>
+<div><%= @store.store_name %></div>
+<br>
 
-<%= form_with model: @store, url: stores_path , local: true do |f| %>
+<%= form_with model: @store, url: store_path(@store.id) , local: true do |f| %>
 
   <div class="weight-bold-text">
     店舗名称
@@ -34,8 +36,8 @@
       id:"item-name", placeholder:"電話番号（見やすいように記入してください）", maxlength:"100" %>
 
   <div class="sell-btn-contents">
-    <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', root_path, class:"back-btn" %>
+    <%= f.submit "編集を反映する" ,class:"sell-btn" %>
+    <%= link_to 'もどる', store_path(@store.id), class:"back-btn" %>
   </div>
 
   <% end %>

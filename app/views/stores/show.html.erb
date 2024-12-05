@@ -16,5 +16,16 @@
         <th class="detail-item">店舗電話番号</th>
         <td class="detail-value"><%= @store.store_tel %></td>
       </tr>
-      </tbody>
-    </table>
+    </tbody>
+  </table>
+
+  <div>
+  <%= link_to "店舗情報の編集", edit_store_path(@store.id), method: :get, class: "item-red-btn" %>
+  </div>
+  <div>
+  <%= link_to "削除", store_path(@store.id), data: {turbo_method: :delete}, class:"item-destroy" %>
+  </div>
+
+  <div>
+  <%= link_to 'もどる', root_path, class:"back-btn" %>
+  </div>
