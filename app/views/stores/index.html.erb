@@ -11,4 +11,8 @@
 <% if user_signed_in? %>
   <%= current_user.admin_name %> <br>
 <% end %>
-Hello! yoyaku-app へようこそ！
+Hello! yoyaku-app へようこそ！<br>
+<div>
+  <%= link_to '店舗登録', new_store_path, class: 'purchase-btn'  %>
+</div>
+
