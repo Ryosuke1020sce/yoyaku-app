@@ -16,3 +16,17 @@ Hello! yoyaku-app へようこそ！<br>
   <%= link_to '店舗登録', new_store_path, class: 'purchase-btn'  %>
 </div>
 
+<ul class='item-lists'>
+<% if @stores.count != 0 %>
+  <% @stores.each do |store| %>
+  <li class='list'>
+    <%= link_to "#" do %>
+      <div>
+        <%= "#{store.store_name}  #{store.store_address}" %>
+      </div>
+    <% end %>
+  <% end %>  
+  </li>
+<% end %>
+</ul>
+

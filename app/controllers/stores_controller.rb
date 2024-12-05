@@ -1,4 +1,9 @@
 class StoresController < ApplicationController
+  before_action :authenticate_user! #, except: []
+
+  def index
+    @stores = Store.where(user_id: current_user.id)
+  end
 
   def new
     @store = Store.new
