@@ -20,7 +20,7 @@ Hello! yoyaku-app へようこそ！<br>
 <% if @stores.count != 0 %>
   <% @stores.each do |store| %>
   <li class='list'>
-    <%= link_to "#" do %>
+    <%= link_to store_path(store.id) do %>
       <div>
         <%= "#{store.store_name}  #{store.store_address}" %>
       </div>
