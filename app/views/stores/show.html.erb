@@ -25,6 +25,9 @@
   <div>
   <%= link_to "削除", store_path(@store.id), data: {turbo_method: :delete}, class:"item-destroy" %>
   </div>
+  <div>
+  <%= link_to "複製", "/stores/new_copy/#{@store.id}", method: :get %>
+  </div>
 
   <div>
   <%= link_to 'もどる', root_path, class:"back-btn" %>

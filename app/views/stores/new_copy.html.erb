@@ -1,0 +1,43 @@
+
+<div>店舗の複製</div>
+<div><%= @store.store_name %></div>
+<br>
+
+<%= form_with model: @store, url: stores_copy_path , local: true do |f| %>
+
+  <div class="weight-bold-text">
+    店舗名称
+    <span class="indispensable">必須</span>
+  </div>
+  <%= f.text_area :store_name, class:"items-text",
+      id:"item-name", placeholder:"店舗名（必須 40文字まで)",
+      maxlength:"40" %>
+
+  <div class="weight-bold-text">
+    店舗案内
+    <span class="indispensable">必須</span>
+  </div>
+  <%= f.text_area :store_guide, class:"items-text",
+      id:"item-info", placeholder:"店舗についての詳細情報（必須 1000文字まで）",
+      rows:"7" ,maxlength:"1000" %>
+
+  <div class="weight-bold-text">
+    店舗住所
+    <span class="indispensable">必須</span>
+  </div>
+  <%= f.text_area :store_address, class:"items-text",
+     id:"item-name", placeholder:"店舗住所", maxlength:"200" %>
+
+  <div class="weight-bold-text">
+    店舗電話番号
+    <span class="indispensable">必須</span>
+  </div>
+  <%= f.text_area :store_tel, class:"items-text", 
+      id:"item-name", placeholder:"電話番号（見やすいように記入してください）", maxlength:"100" %>
+
+  <div class="sell-btn-contents">
+    <%= f.submit "この内容で作成する" ,class:"sell-btn" %>
+    <%= link_to 'もどる', store_path(@store.id), class:"back-btn" %>
+  </div>
+
+  <% end %>
