@@ -1,6 +1,6 @@
 class StoresController < ApplicationController
   before_action :authenticate_user! #, except: []
-  before_action :set_store, only: [:show, :edit, :update, :destroy]
+  before_action :set_store, only: [:show, :edit, :update, :destroy, :new_copy]
 
   def index
     @stores = Store.where(user_id: current_user.id)
@@ -8,6 +8,18 @@ class StoresController < ApplicationController
 
   def new
     @store = Store.new
+  end
+
+  def new_copy
+  end
+
+  def create_copy
+    @store = Store.new(store_params)
+    if @store.save
+      redirect_to root_path
+    else
+      render :new_copy, status: :unprocessable_entity
+    end
   end
 
   def create
