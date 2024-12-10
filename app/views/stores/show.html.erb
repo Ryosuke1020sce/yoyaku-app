@@ -28,7 +28,9 @@
   <div>
   <%= link_to "複製", "/stores/new_copy/#{@store.id}", method: :get %>
   </div>
-
+  <div>
+  <%= link_to "この店舗のカレンダーへ", store_reservations_path(@store.id), method: :get %>
+  </div>
   <div>
   <%= link_to 'もどる', root_path, class:"back-btn" %>
   </div>
