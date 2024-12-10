@@ -1,2 +1,26 @@
 <%= "#{@store.store_name} の予約カレンダー" %>
 <h1>※予約枠を作成してください。</h1>
+
+<% week_name = ["日","月","火","水","木","金","土"] %>
+<div class = "weekday-box">
+<% 7.times do |i| %>
+  <div class = "weekday-name">
+    <%= week_name[i] %> 
+  </div>
+<% end %>
+</div>
+
+<% 6.times do %>
+
+  <div class = "week-box">
+  <% 7.times do %>
+    <div class = "day-box">
+      <div class = "day-name"></div>
+      <div class = "day-content"></div>
+    </div>  
+  <%  %>
+  <% end %>
+  </div>
+<% end %>
+<%  %>
+
