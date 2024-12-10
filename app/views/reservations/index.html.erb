@@ -42,3 +42,10 @@
 <% end %>
 <%  %>
 
+<div>
+<%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
+</div>
+<div>
+<%= link_to "店舗一覧に戻る", root_path, method: :get %>
+</div>
+
