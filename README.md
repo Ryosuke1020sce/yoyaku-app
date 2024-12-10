@@ -53,7 +53,7 @@
 | Column          | Type       | Options     |
 | --------------- | ---------- | ----------- |
 | rsv_date        | date       | null: false |
-| rsv_time_zone   | time       | null: false |
+| rsv_time_id     | integer    | null: false |
 | service_type_id | integer    | null: false |
 | upper_people_n  | integer    | null: false |
 | fee             | integer    | null: false |
