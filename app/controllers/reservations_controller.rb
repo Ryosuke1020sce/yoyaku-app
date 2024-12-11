@@ -10,10 +10,8 @@ class ReservationsController < ApplicationController
 
   def create
 
-
     @reservation = Reservation.new(reservation_params)
-
-
+    
     if @reservation.save
       n = params[:reservation][:rsv_n].to_i - 1
       n.times do

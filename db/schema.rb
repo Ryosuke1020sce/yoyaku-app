@@ -13,10 +13,12 @@
 ActiveRecord::Schema[7.0].define(version: 2024_12_10_072653) do
   create_table "reservations", charset: "utf8mb3", force: :cascade do |t|
     t.date "rsv_date", null: false
+    t.integer "rsv_n", null: false
     t.integer "rsv_time_id", null: false
+    t.string "explain"
     t.integer "service_type_id", null: false
-    t.integer "upper_people_n", null: false
-    t.integer "fee", null: false
+    t.integer "upper_people_n"
+    t.integer "fee"
     t.bigint "store_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
