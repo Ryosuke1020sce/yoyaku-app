@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'stores#index'  
 
   resources :stores do
-    resources :reservations, only: [:index]
+    resources :reservations, only: [:index, :new, :create]
   end
 
   get 'stores/new_copy/:id', to: 'stores#new_copy'

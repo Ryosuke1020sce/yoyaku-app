@@ -43,6 +43,10 @@
 <%  %>
 
 <div>
+<%= link_to "予約枠の新規登録", new_store_reservation_path, method: :get %>
+</div>
+
+<div>
 <%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
 </div>
 <div>
