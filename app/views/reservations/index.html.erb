@@ -9,6 +9,22 @@
 <% start_day = one_day - one_day_w %>
 <% x = 0 %>
 
+<%# 配列に予約枠を割り当てる %>
+
+<% array = Array.new(42) {Array.new(10)} %>
+
+<% @reservations.each do |rsv| %>
+  <% date_d = rsv.rsv_date - start_day %>
+  <% n = 0 %>
+  <% if 0 <= date_d && date_d <= 41 %>
+    <% while array[date_d][n] != nil %>
+      <% n += 1 %>
+    <% end %>
+    <% array[date_d][n] = rsv %>
+  <% end %>
+<% end %>
+
+
 <h2>
   <%= "#{today_m} 月の予約枠" %>
 </h2>
@@ -22,8 +38,9 @@
 <% end %>
 </div>
 
-<% 6.times do %>
+<% k = 0 %>
 
+<% 6.times do %>
   <div class = "week-box">
   <% 7.times do %>
     <div class = "day-box">
@@ -34,9 +51,16 @@
         <%= "#{m}/#{d}" %> 
         <% x += 1 %>
       </div>
-      <div class = "day-content"></div>
+      <div class = "day-content">
+        <% 9.times do |n| %>
+          <% if array[k][n] != nil %>
+            <% a = array[k][n] %>
+            <%= "#{a.explain}:#{a.rsv_n}枠" %>
+          <% end %>
+        <% end %>
+      </div>
     </div>  
-  <%  %>
+    <% k += 1 %>
   <% end %>
   </div>
 <% end %>
@@ -52,4 +76,11 @@
 <div>
 <%= link_to "店舗一覧に戻る", root_path, method: :get %>
 </div>
+
+<% @reservations.each do |rsv| %>
+<div>
+  <%= rsv.rsv_date %>
+  <%= "　#{rsv.rsv_n}枠"  %>
+</div>
+<% end %>
 
