@@ -1,5 +1,7 @@
 class ReservationsController < ApplicationController
-  before_action :set_store, only: [:index, :show]
+  before_action :authenticate_user!
+  before_action :set_store, only: [:index, :show, :edit, :update, :show, :destroy]
+  before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 
   def index
     @reservations = Reservation.where(store_id: params[:store_id])
@@ -19,7 +21,22 @@ class ReservationsController < ApplicationController
   end
 
   def show
-    @reservation = Reservation.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @reservation.update(reservation_params)
+      redirect_to store_reservations_path(@store.id)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy # 「本当に削除しますか？」の確認を追加したい！JavaScriptで
+    @reservation.destroy
+    redirect_to store_reservations_path(@store.id)
   end
 
   private
@@ -33,4 +50,7 @@ class ReservationsController < ApplicationController
     @store = Store.find(params[:store_id])
   end
 
+  def set_reservation
+    @reservation = Reservation.find(params[:id])
+  end 
 end

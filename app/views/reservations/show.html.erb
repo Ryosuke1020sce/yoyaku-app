@@ -36,13 +36,10 @@
   </table>
 
   <div>
-  <%= link_to "予約枠の編集", "#", method: :get, class: "item-red-btn" %>
+  <%= link_to "予約枠の編集", edit_store_reservation_path(@store.id, @reservation.id), method: :get, class: "item-red-btn" %>
   </div>
   <div>
-  <%= link_to "削除", "#", data: {turbo_method: :delete}, class:"item-destroy" %>
-  </div>
-  <div>
-  <%= link_to "複製", "#", method: :get %>
+  <%= link_to "削除", store_reservation_path(@store.id, @reservation.id), data: {turbo_method: :delete}, class:"item-destroy" %>
   </div>
   <div>
   <%= link_to "この店舗のカレンダーにもどる", store_reservations_path(@store.id), method: :get %>

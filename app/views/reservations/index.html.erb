@@ -55,7 +55,6 @@
         <% 9.times do |n| %>
           <% if array[k][n] != nil %>
             <% a = array[k][n] %>
-            <% # "#{a.explain}:#{a.rsv_n}枠" %>
             <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_path(@store.id, a.id), method: :get %>
           <% end %>
         <% end %>
