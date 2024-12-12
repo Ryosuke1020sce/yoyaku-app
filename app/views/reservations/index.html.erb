@@ -55,7 +55,8 @@
         <% 9.times do |n| %>
           <% if array[k][n] != nil %>
             <% a = array[k][n] %>
-            <%= "#{a.explain}:#{a.rsv_n}枠" %>
+            <% # "#{a.explain}:#{a.rsv_n}枠" %>
+            <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_path(@store.id, a.id), method: :get %>
           <% end %>
         <% end %>
       </div>
@@ -77,7 +78,7 @@
 <%= link_to "店舗一覧に戻る", root_path, method: :get %>
 </div>
 
-<% @reservations.each do |rsv| %>
+<% @reservations.each do |rsv| # これは仮なので後で削除しよう %>
 <div>
   <%= rsv.rsv_date %>
   <%= "　#{rsv.rsv_n}枠"  %>

@@ -1,0 +1,52 @@
+<h3>
+<%= "#{@store.store_name} : #{@reservation.rsv_date} の予約枠詳細" %>
+</h3>
+
+  <table class="detail-table">
+    <tbody>
+      <tr>
+        <th class="detail-item">予約日</th>
+        <td class="detail-value"><%= @reservation.rsv_date %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">予約枠数</th>
+        <td class="detail-value"><%= @reservation.rsv_n %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">予約時間</th>
+        <td class="detail-value"><%= @reservation.rsv_time.name %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">説明</th>
+        <td class="detail-value"><%= @reservation.explain %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">種別</th>
+        <td class="detail-value"><%= @reservation.service_type.name %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">上限人数</th>
+        <td class="detail-value"><%= @reservation.upper_people_n %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">料金</th>
+        <td class="detail-value"><%= @reservation.fee %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+  <%= link_to "予約枠の編集", "#", method: :get, class: "item-red-btn" %>
+  </div>
+  <div>
+  <%= link_to "削除", "#", data: {turbo_method: :delete}, class:"item-destroy" %>
+  </div>
+  <div>
+  <%= link_to "複製", "#", method: :get %>
+  </div>
+  <div>
+  <%= link_to "この店舗のカレンダーにもどる", store_reservations_path(@store.id), method: :get %>
+  </div>
+  <div>
+  <%= link_to 'トップへもどる', root_path, class:"back-btn" %>
+  </div>
