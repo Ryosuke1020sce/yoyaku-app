@@ -60,11 +60,23 @@
 | upper_people_n  | integer    |             |
 | fee             | integer    |             |
 | store           | references | null: false, foreign_key: true |
+| rsv_group       | references | foreign_key: true |
 
 ## Association
 
 - belongs_to :store
+- belongs_to :rsv_group
 - has_many :guests
+
+
+## rsv_groups テーブル
+
+| Column          | Type       | Options     |
+| --------------- | ---------- | ----------- |
+
+## Association
+
+- has_many :reservations
 
 
 ## guests テーブル
