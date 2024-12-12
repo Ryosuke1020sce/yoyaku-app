@@ -53,10 +53,12 @@
 | Column          | Type       | Options     |
 | --------------- | ---------- | ----------- |
 | rsv_date        | date       | null: false |
-| rsv_time_zone   | time       | null: false |
+| rsv_n           | integer    | null: false |
+| rsv_time_id     | integer    | null: false |
+| explain         | string     |             |
 | service_type_id | integer    | null: false |
-| upper_people_n  | integer    | null: false |
-| fee             | integer    | null: false |
+| upper_people_n  | integer    |             |
+| fee             | integer    |             |
 | store           | references | null: false, foreign_key: true |
 
 ## Association

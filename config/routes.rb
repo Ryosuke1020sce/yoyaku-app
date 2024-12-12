@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   
   root to: 'stores#index'  
 
-  resources :stores, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :stores do
+    resources :reservations, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  end
 
   get 'stores/new_copy/:id', to: 'stores#new_copy'
   patch 'stores_copy', to: 'stores#create_copy'

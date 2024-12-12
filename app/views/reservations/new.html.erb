@@ -1,0 +1,65 @@
+<div>店舗の新規登録</div>
+
+<%= form_with model: @reservation, url: store_reservations_path , local: true do |f| %>
+
+  <div class="weight-bold-text">
+    予約枠数
+    <span class="indispensable">必須</span>
+  </div>
+  <%= f.text_area :rsv_n, class:"items-text", placeholder:"枠数を指定（半角数字）" %>
+
+  <div class="weight-bold-text">
+    日付
+    <span class="indispensable">必須</span>
+  </div>
+  <%= f.text_area :rsv_date, class:"items-text",
+      id:"item-name", placeholder:"日付",
+      maxlength:"40" %>
+
+  <div class="weight-bold-text">
+    時間帯
+    <span class="indispensable">必須でない</span>
+  </div>
+  <%= f.collection_select(:rsv_time_id, RsvTime.all, :id, :name,
+      {}, {class:"select-box", id:"item-category"}) %>
+
+  <div class="weight-bold-text">
+    サービス種別
+    <span class="indispensable">必須でない</span>
+  </div>
+  <%= f.collection_select(:service_type_id, ServiceType.all, :id, :name,
+      {}, {class:"select-box", id:"item-category"}) %>
+
+  <div class="weight-bold-text">
+    説明
+    <span class="indispensable">必須でない</span>
+  </div>
+  <%= f.text_area :explain, class:"items-text", 
+      id:"item-name", placeholder:"簡単な説明をご記入ください（２０文字以内）", maxlength:"20" %>
+
+  <div class="weight-bold-text">
+    人数上限
+    <span class="indispensable">必須でない</span>
+  </div>
+  <%= f.text_area :upper_people_n, class:"items-text", 
+      id:"item-name", placeholder:"お客様の上限人数", maxlength:"3" %>
+
+  <div class="weight-bold-text">
+    料金
+    <span class="indispensable">必須でない</span>
+  </div>
+  <%= f.text_area :fee, class:"items-text", 
+      id:"item-name", placeholder:"設定料金", maxlength:"10" %>
+
+
+
+  <div class="sell-btn-contents">
+    <%= f.submit "登録する" ,class:"sell-btn" %>
+    <%= link_to 'もどる', root_path, class:"back-btn" %>
+  </div>
+
+  <%= f.check_box :check_sample %>
+  <%= f.radio_button :radio_sample, 'my_option' %>
+  <%= f.hidden_field :hidden_sample, value: 'hidden_option' %>
+
+  <% end %>
