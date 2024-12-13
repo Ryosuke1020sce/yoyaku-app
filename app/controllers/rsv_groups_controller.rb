@@ -1,5 +1,6 @@
 class RsvGroupsController < ApplicationController
-  before_action :set_store, only: [:new]
+  before_action :set_store, only: [:new, :edit, :update]
+  before_action :set_rsv_group, only: [:edit, :update]
 
   def new
     @reservation = Reservation.new
@@ -33,6 +34,31 @@ class RsvGroupsController < ApplicationController
 
   end
 
+  def edit
+    @reservations = Reservation.where(rsv_group_id: @rsv_group)
+  end
+
+  def update
+
+    n = params[:reservation][:last_i].to_i + 1
+    save_successed = false
+    
+    @reservations = Reservation.where(rsv_group_id: @rsv_group)
+
+    @reservations.each do |rsv|
+      d = rsv.rsv_date
+      if rsv.update(reservation_params(d))
+        save_successed = true
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
+    if save_successed
+      redirect_to store_reservations_path(@store.id)
+    end
+  end
+
   private
 
   def reservation_params(this_day)
@@ -43,6 +69,10 @@ class RsvGroupsController < ApplicationController
 
   def set_store
     @store = Store.find(params[:store_id])
+  end
+
+  def set_rsv_group
+    @rsv_group = RsvGroup.find(params[:id])
   end
 
 end

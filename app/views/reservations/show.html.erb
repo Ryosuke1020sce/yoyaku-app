@@ -38,6 +38,11 @@
   <div>
   <%= link_to "予約枠の編集", edit_store_reservation_path(@store.id, @reservation.id), method: :get, class: "item-red-btn" %>
   </div>
+  <% if @reservation.rsv_group != nil %>
+    <div>
+      <%= link_to "予約枠の編集（一括）", edit_store_rsv_group_path(@store.id, @reservation.rsv_group_id), method: :get, class: "item-red-btn" %>
+    </div>
+  <% end %>  
   <div>
   <%= link_to "削除", store_reservation_path(@store.id, @reservation.id), data: {turbo_method: :delete}, class:"item-destroy" %>
   </div>

@@ -1,20 +1,28 @@
-<div>予約枠の編集</div>
+<h3>一括編集ページ</h3>
 
-<%= form_with model: @reservation, url: store_reservation_path , local: true do |f| %>
+<% @reservation = @reservations[0] %>
+
+<%= form_with model: [@store, @reservation], url: store_rsv_group_path(@store.id, @rsv_group.id) , local: true do |f| %>
+
+  <div class="weight-bold-text">
+    編集対象日付<br>
+    <% i = 0 %>
+    <% @reservations.each do |rsv| %>
+      <% m = rsv.rsv_date.month %>
+      <% d = rsv.rsv_date.day %>
+      <%= "[ #{m}/#{d} ]  " %>
+      <% i += 1 %>
+      <% if (i % 5) == 0 %>
+        <br>
+      <% end %>
+    <% end %> 
+  </div><br>
 
   <div class="weight-bold-text">
     予約枠数
     <span class="indispensable">必須</span>
   </div>
   <%= f.text_area :rsv_n, class:"items-text", placeholder:"枠数を指定（半角数字）" %>
-
-  <div class="weight-bold-text">
-    日付
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_area :rsv_date, class:"items-text",
-      id:"item-name", placeholder:"日付",
-      maxlength:"40" %>
 
   <div class="weight-bold-text">
     時間帯
@@ -35,8 +43,7 @@
     <span class="indispensable">必須でない</span>
   </div>
   <%= f.text_area :explain, class:"items-text", 
-      id:"item-name", placeholder:"簡単な説明をご記入ください（２０文字以内）",
-      maxlength:"20" %>
+      id:"item-name", placeholder:"簡単な説明をご記入ください（２０文字以内）", maxlength:"20" %>
 
   <div class="weight-bold-text">
     人数上限
@@ -54,7 +61,7 @@
 
   <div class="sell-btn-contents">
     <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', store_reservation_path(@reservation.store_id, @reservation.id), class:"back-btn" %>
+    <%= link_to 'もどる', store_reservations_path(@store.id), class:"back-btn" %>
   </div>
 
-  <% end %>
+<% end %>
