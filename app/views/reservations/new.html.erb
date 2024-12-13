@@ -51,19 +51,12 @@
   <%= f.text_area :fee, class:"items-text", 
       id:"item-name", placeholder:"設定料金", maxlength:"10" %>
 
-
-
   <div class="sell-btn-contents">
     <%= f.submit "登録する" ,class:"sell-btn" %>
     <%= link_to 'もどる', root_path, class:"back-btn" %>
   </div>
 
-  <%= f.check_box :check_sample %>
   <%= f.radio_button :radio_sample, 'my_option' %>
   <%= f.hidden_field :hidden_sample, value: 'hidden_option' %>
-
-<% v = "day_#{1}"   %>
-<% v = v.to_sym %>
-<%= f.check_box v %>
 
   <% end %>

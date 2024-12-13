@@ -11,6 +11,7 @@
 
   <div class = "day-select">
   <% d_sym = Array.new(31) %>
+  <% last_i = 31 %>
   <% 31.times do |i| %>
     <% a_day = one_day + i %>
     <% if a_day.month == today_m %>
@@ -19,12 +20,10 @@
         <%= f.check_box d_sym[i] %>
         <%= "#{today_m}/#{a_day.day}" %>
       </div>
+    <% else %>
+      <% last_i = i - 1 %>  
     <% end %>
-    <%  %>
   <% end %>
-  <%  %>
-  <%  %>
-  <%  %>
   </div>
 
   <div class="weight-bold-text">
@@ -73,7 +72,11 @@
     <%= link_to 'もどる', root_path, class:"back-btn" %>
   </div>
   
-  <% f.hidden_field :today_y, value: today_y %>
-  <% f.hidden_field :today_m, value: today_m %>
+  <div class = "hidden"> 表示されない⇒paramsに格納される
+  <%= f.text_area :today_y, value: today_y %>
+  <%= f.text_area :today_m, value: today_m %>
+  <%= f.text_area :last_i, value: last_i %>
+  <%= f.text_area :store_id, value: @store_id %>
+  </div>
 
 <% end %>
