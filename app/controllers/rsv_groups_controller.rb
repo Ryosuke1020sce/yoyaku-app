@@ -1,4 +1,5 @@
 class RsvGroupsController < ApplicationController
+  before_action :set_store, only: [:new]
 
   def new
     @reservation = Reservation.new
@@ -38,6 +39,10 @@ class RsvGroupsController < ApplicationController
     params.require(:reservation).permit(:rsv_time_id, :rsv_n, :explain,
       :service_type_id, :upper_people_n, :fee).merge(rsv_date: this_day,
       store_id: params[:store_id], rsv_group_id: @rsv_group.id)
+  end
+
+  def set_store
+    @store = Store.find(params[:store_id])
   end
 
 end

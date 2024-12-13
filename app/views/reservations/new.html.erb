@@ -53,7 +53,7 @@
 
   <div class="sell-btn-contents">
     <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', root_path, class:"back-btn" %>
+    <%= link_to 'もどる', store_reservations_path(@store.id), class:"back-btn" %>
   </div>
 
   <%= f.radio_button :radio_sample, 'my_option' %>
