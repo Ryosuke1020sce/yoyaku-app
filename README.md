@@ -30,6 +30,7 @@
 - belongs_to :user
 - has_one :option
 - has_many :reservations
+- has_many :calendars
 
 
 ## options テーブル
