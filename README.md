@@ -81,6 +81,18 @@
 - has_many :reservations
 
 
+## calendar テーブル
+
+| Column          | Type       | Options     |
+| --------------- | ---------- | ----------- |
+| std_date        | date       | null: false |
+| store           | references | null: false, foreign_key: true |
+
+## Association
+
+- belongs_to :store
+
+
 ## guests テーブル
 
 | Column      | Type       | Options     |

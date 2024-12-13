@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_13_053613) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_13_091347) do
+  create_table "calendars", charset: "utf8mb3", force: :cascade do |t|
+    t.date "std_date", null: false
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_calendars_on_store_id"
+  end
+
   create_table "reservations", charset: "utf8mb3", force: :cascade do |t|
     t.date "rsv_date", null: false
     t.integer "rsv_n", null: false
@@ -58,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_13_053613) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "calendars", "stores"
   add_foreign_key "reservations", "rsv_groups"
   add_foreign_key "reservations", "stores"
   add_foreign_key "rsv_groups", "stores"
