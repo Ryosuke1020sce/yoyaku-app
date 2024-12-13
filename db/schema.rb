@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_12_091604) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_13_053613) do
   create_table "reservations", charset: "utf8mb3", force: :cascade do |t|
     t.date "rsv_date", null: false
     t.integer "rsv_n", null: false
@@ -30,6 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_12_091604) do
   create_table "rsv_groups", charset: "utf8mb3", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "store_id", null: false
+    t.index ["store_id"], name: "index_rsv_groups_on_store_id"
   end
 
   create_table "stores", charset: "utf8mb3", force: :cascade do |t|
@@ -58,5 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_12_091604) do
 
   add_foreign_key "reservations", "rsv_groups"
   add_foreign_key "reservations", "stores"
+  add_foreign_key "rsv_groups", "stores"
   add_foreign_key "stores", "users"
 end

@@ -7,7 +7,7 @@
 <% one_day_w = one_day.wday %>
 <% start_day = one_day - one_day_w %>
 
-<%= form_with model: @reservation, url: rsv_groups_path , local: true do |f| %>
+<%= form_with model: @reservation, url: store_rsv_groups_path , local: true do |f| %>
 
   <div class = "day-select">
   <% d_sym = Array.new(31) %>
@@ -76,7 +76,6 @@
   <%= f.text_area :today_y, value: today_y %>
   <%= f.text_area :today_m, value: today_m %>
   <%= f.text_area :last_i, value: last_i %>
-  <%= f.text_area :store_id, value: @store_id %>
   </div>
 
 <% end %>
