@@ -1,4 +1,4 @@
-<div>店舗の新規登録</div>
+<h3>予約枠の新規登録</h3>
 
 <%= form_with model: @reservation, url: store_reservations_path , local: true do |f| %>
 
@@ -51,14 +51,11 @@
   <%= f.text_area :fee, class:"items-text", 
       id:"item-name", placeholder:"設定料金", maxlength:"10" %>
 
-
-
   <div class="sell-btn-contents">
     <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', root_path, class:"back-btn" %>
+    <%= link_to 'もどる', store_reservations_path(@store.id), class:"back-btn" %>
   </div>
 
-  <%= f.check_box :check_sample %>
   <%= f.radio_button :radio_sample, 'my_option' %>
   <%= f.hidden_field :hidden_sample, value: 'hidden_option' %>
 

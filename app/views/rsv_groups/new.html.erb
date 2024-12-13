@@ -1,20 +1,36 @@
-<div>予約枠の編集</div>
+<h3>予約枠の新規登録＜一括＞</h3>
 
-<%= form_with model: @reservation, url: store_reservation_path , local: true do |f| %>
+<% today = Date.today %>
+<% today_m = today.month %>
+<% today_y = today.year %>
+<% one_day = Date.new(today_y,today_m,1) %>
+<% one_day_w = one_day.wday %>
+<% start_day = one_day - one_day_w %>
+
+<%= form_with model: [@store, @reservation], url: store_rsv_groups_path , local: true do |f| %>
+
+  <div class = "day-select">
+  <% d_sym = Array.new(31) %>
+  <% last_i = 31 %>
+  <% 31.times do |i| %>
+    <% a_day = one_day + i %>
+    <% if a_day.month == today_m %>
+      <% d_sym[i] = "day_#{i}".to_sym %>
+      <div class = "day">
+        <%= f.check_box d_sym[i] %>
+        <%= "#{today_m}/#{a_day.day}" %>
+      </div>
+    <% else %>
+      <% last_i = i - 1 %>  
+    <% end %>
+  <% end %>
+  </div>
 
   <div class="weight-bold-text">
     予約枠数
     <span class="indispensable">必須</span>
   </div>
   <%= f.text_area :rsv_n, class:"items-text", placeholder:"枠数を指定（半角数字）" %>
-
-  <div class="weight-bold-text">
-    日付
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_area :rsv_date, class:"items-text",
-      id:"item-name", placeholder:"日付",
-      maxlength:"40" %>
 
   <div class="weight-bold-text">
     時間帯
@@ -35,8 +51,7 @@
     <span class="indispensable">必須でない</span>
   </div>
   <%= f.text_area :explain, class:"items-text", 
-      id:"item-name", placeholder:"簡単な説明をご記入ください（２０文字以内）",
-      maxlength:"20" %>
+      id:"item-name", placeholder:"簡単な説明をご記入ください（２０文字以内）", maxlength:"20" %>
 
   <div class="weight-bold-text">
     人数上限
@@ -54,7 +69,13 @@
 
   <div class="sell-btn-contents">
     <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', store_reservation_path(@reservation.store_id, @reservation.id), class:"back-btn" %>
+    <%= link_to 'もどる', store_reservations_path(@store.id), class:"back-btn" %>
+  </div>
+  
+  <div class = "hidden"> 表示されない⇒paramsに格納される
+  <%= f.text_area :today_y, value: today_y %>
+  <%= f.text_area :today_m, value: today_m %>
+  <%= f.text_area :last_i, value: last_i %>
   </div>
 
-  <% end %>
+<% end %>

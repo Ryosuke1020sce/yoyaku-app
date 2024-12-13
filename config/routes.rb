@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :stores do
     resources :reservations, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+    resources :rsv_groups, only: [:new, :create, :edit, :update]
   end
 
   get 'stores/new_copy/:id', to: 'stores#new_copy'
