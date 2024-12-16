@@ -1,12 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_store, only: [:index, :show, :edit, :update, :show, :destroy]
+  before_action :set_store, only: [:show, :edit, :update, :show, :destroy]
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @reservations = Reservation.where(store_id: params[:store_id])
-    @calendar = Calendar.new
-  end
 
   def new
     @reservation = Reservation.new

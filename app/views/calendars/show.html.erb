@@ -1,10 +1,8 @@
 <%= "#{@store.store_name} の予約カレンダー" %>
-<h1>※予約枠を作成してください。</h1>
+<h3>※予約枠を作成してください。</h3>
+<h3>カレンダーモデル：別の月の表示が可能！</h3>
 
-<% today = Date.today %>
-<% today_m = today.month %>
-<% today_y = today.year %>
-<% one_day = Date.new(today_y,today_m,1) %>
+<% one_day = @calendar.std_date %>
 <% one_day_w = one_day.wday %>
 <% start_day = one_day - one_day_w %>
 <% x = 0 %>
@@ -24,10 +22,15 @@
   <% end %>
 <% end %>
 
-
 <h2>
-  <%= "#{today_m} 月の予約枠" %>
+  <%= "#{@calendar.std_date.month} 月の予約枠" %>
 </h2>
+
+<% @calendars.each do |cal| %>
+  <div>
+  <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
+  </div>
+<% end %>
 
 <% week_name = ["日","月","火","水","木","金","土"] %>
 <div class = "weekday-box">
@@ -81,11 +84,5 @@
 <%= link_to "店舗一覧に戻る", root_path, method: :get %>
 </div>
 
-<%= form_with model: @calendar, url: store_calendars_path , local: true do |f| %>
 
-  <%= f.select :std_date, [["2024年12月","2024/12/1"],
-      ["2025年1月","2025/1/1"],["2025年2月","2025/2/1"], ] %>
 
-  <%= f.submit "カレンダー作成" ,class:"sell-btn" %>
-
-<% end %>

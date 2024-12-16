@@ -1,11 +1,5 @@
 class CalendarsController < ApplicationController
 
-  def index
-  end
-
-  def new
-  end
-
   def create
     if !same_date_exist
       @calendar = Calendar.new(calendar_params)
@@ -13,6 +7,13 @@ class CalendarsController < ApplicationController
         redirect_to store_reservations_path(params[:store_id])
       end
     end
+  end
+
+  def show
+    @store = Store.find(params[:store_id])
+    @reservations = Reservation.where(store_id: params[:store_id])
+    @calendar = Calendar.find(params[:id])
+    @calendars = Calendar.where(store_id: params[:store_id])
   end
 
   private

@@ -32,6 +32,7 @@ class StoresController < ApplicationController
   end
   
   def show
+    @calendars = Calendar.where(store_id: params[:id])
   end
 
   def edit

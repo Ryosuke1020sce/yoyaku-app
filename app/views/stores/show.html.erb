@@ -29,8 +29,13 @@
   <%= link_to "複製", "/stores/new_copy/#{@store.id}", method: :get %>
   </div>
   <div>
-  <%= link_to "この店舗のカレンダーへ", store_reservations_path(@store.id), method: :get %>
-  </div>
+  <% @calendars.each do |cal| %>
+    <% today = Date.today %>
+    <% if cal.std_date.year == today.year && cal.std_date.month == today.month %>
+    <%= link_to "この店舗のカレンダーへ", store_calendar_path(@store.id, cal.id), method: :get %>
+    <% end %>
+  <% end %>  
+  </div>  
   <div>
   <%= link_to 'もどる', root_path, class:"back-btn" %>
   </div>
