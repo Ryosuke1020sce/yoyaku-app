@@ -75,10 +75,12 @@
 | Column          | Type       | Options     |
 | --------------- | ---------- | ----------- |
 | store           | references | null: false, foreign_key: true |
+| calendar        | references | null: false, foreign_key: true |
 
 ## Association
 
 - belongs_to :store
+- belongs_to :calendar
 - has_many :reservations
 
 
@@ -92,6 +94,7 @@
 ## Association
 
 - belongs_to :store
+- has_many :rsv_groups
 
 
 ## guests テーブル

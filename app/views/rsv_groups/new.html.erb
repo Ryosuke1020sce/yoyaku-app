@@ -1,30 +1,31 @@
 <h3>予約枠の新規登録＜一括＞</h3>
 
-<% today = Date.today %>
-<% today_m = today.month %>
-<% today_y = today.year %>
-<% one_day = Date.new(today_y,today_m,1) %>
+<% one_day = @calendar.std_date %>
+<% one_day_m = one_day.month %>
+<% one_day_y = one_day.year %>
 <% one_day_w = one_day.wday %>
 <% start_day = one_day - one_day_w %>
 
-<%= form_with model: [@store, @reservation], url: store_rsv_groups_path , local: true do |f| %>
+<%= form_with model: [@store, @reservation], url: store_calendar_rsv_groups_path , local: true do |f| %>
 
   <div class = "day-select">
   <% d_sym = Array.new(31) %>
   <% last_i = 31 %>
   <% 31.times do |i| %>
     <% a_day = one_day + i %>
-    <% if a_day.month == today_m %>
+    <% if a_day.month == one_day_m %>
       <% d_sym[i] = "day_#{i}".to_sym %>
       <div class = "day">
         <%= f.check_box d_sym[i] %>
-        <%= "#{today_m}/#{a_day.day}" %>
+        <%= "#{one_day_m}/#{a_day.day}" %>
       </div>
     <% else %>
       <% last_i = i - 1 %>  
     <% end %>
   <% end %>
   </div>
+  
+  <br>
 
   <div class="weight-bold-text">
     予約枠数
@@ -69,12 +70,12 @@
 
   <div class="sell-btn-contents">
     <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', store_reservations_path(@store.id), class:"back-btn" %>
+    <%= link_to 'もどる', store_calendar_path(@store.id, @calendar.id), class:"back-btn" %>
   </div>
   
   <div class = "hidden"> 表示されない⇒paramsに格納される
-  <%= f.text_area :today_y, value: today_y %>
-  <%= f.text_area :today_m, value: today_m %>
+  <%= f.text_area :one_day_y, value: one_day_y %>
+  <%= f.text_area :one_day_m, value: one_day_m %>
   <%= f.text_area :last_i, value: last_i %>
   </div>
 

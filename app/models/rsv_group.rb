@@ -1,6 +1,6 @@
 class RsvGroup < ApplicationRecord
 
-  belongs_to :store
+  belongs_to :calendar
   has_many :reservations
 
 end

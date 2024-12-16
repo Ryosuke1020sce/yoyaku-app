@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_store, only: [:show, :edit, :update, :show, :destroy]
+  before_action :set_store, only: [:show, :edit, :update, :destroy]
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 
   def new
