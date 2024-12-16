@@ -85,4 +85,11 @@
 </div>
 
 
+<%= form_with model: @calendar, url: store_calendars_path , local: true do |f| %>
+
+  <%= f.select :std_date, [["2024年12月","2024/12/1"],
+      ["2025年1月","2025/1/1"],["2025年2月","2025/2/1"]] %>
+  <%= f.submit "カレンダー作成" ,class:"sell-btn" %>
+
+<% end %>
 
