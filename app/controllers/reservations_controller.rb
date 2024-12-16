@@ -5,6 +5,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.where(store_id: params[:store_id])
+    @calendar = Calendar.new
   end
 
   def new
