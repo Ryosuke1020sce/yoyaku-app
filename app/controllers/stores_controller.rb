@@ -57,7 +57,7 @@ class StoresController < ApplicationController
 
   def store_params
     params.require(:store).permit(:store_name, :store_guide,
-      :store_address, :store_tel).merge(user_id: current_user.id)
+      :store_address, :store_tel, :image).merge(user_id: current_user.id)
   end
   
   def set_store

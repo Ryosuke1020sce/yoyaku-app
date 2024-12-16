@@ -4,6 +4,12 @@
         <th class="detail-item">店舗名</th>
         <td class="detail-value"><%= @store.store_name %></td>
       </tr>
+
+      <div class="item-img-content">
+        <%= image_tag @store.image.variant(resize: '500x500'),
+            class:"item-box-img" if @store.image.attached? %>
+      </div> 
+
       <tr>
         <th class="detail-item">店舗案内</th>
         <td class="detail-value"><%= @store.store_guide %></td>

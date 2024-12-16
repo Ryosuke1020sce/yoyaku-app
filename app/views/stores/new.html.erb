@@ -33,6 +33,12 @@
   <%= f.text_area :store_tel, class:"items-text", 
       id:"item-name", placeholder:"電話番号（見やすいように記入してください）", maxlength:"100" %>
 
+  <div class="weight-bold-text">
+    店舗画像
+    <span class="indispensable">任意</span>
+  </div>
+  <%= f.file_field :image, class:"items-text", id:"item-name" %>
+
   <div class="sell-btn-contents">
     <%= f.submit "登録する" ,class:"sell-btn" %>
     <%= link_to 'もどる', root_path, class:"back-btn" %>
