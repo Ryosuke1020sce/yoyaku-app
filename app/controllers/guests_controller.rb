@@ -17,13 +17,13 @@ class GuestsController < ApplicationController
       # 「予約が完了しました」
       store_id = @guest.reservation.store_id
       rsv_id = @guest.reservation.id
-      redirect_to store_reservation_guest_path(store_id, rsv_id, @guest.id)
+      redirect_to "/stores/#{store_id}/reservations/#{rsv_id}/complete/#{@guest.id}"
     else
       render :index, status: :unprocessable_entity
     end
   end
 
-  def show
+  def complete
     @guest = Guest.find(params[:id])
   end
 

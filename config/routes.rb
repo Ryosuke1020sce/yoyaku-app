@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
   resources :stores do
     resources :reservations, only: [:new, :create, :show, :edit, :update, :destroy] do
-      resources :guests, only: [:index, :create, :show]
+      resources :guests, only: [:index, :create]
+      get 'complete/:id', to: 'guests#complete'
     end
     resources :calendars, only: [:create, :show] do
       resources :rsv_groups, only: [:new, :create, :edit, :update]
