@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root to: 'stores#index'  
 
   resources :stores do
-    resources :reservations, only: [:new, :create, :show, :edit, :update, :destroy]
+    resources :reservations, only: [:new, :create, :show, :edit, :update, :destroy] do
+      resources :guests, only: [:index, :create]
+    end
     resources :calendars, only: [:create, :show] do
       resources :rsv_groups, only: [:new, :create, :edit, :update]
       get 'guest_show', to: 'calendars#guest_show'

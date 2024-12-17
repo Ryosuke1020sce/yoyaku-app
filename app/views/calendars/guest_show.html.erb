@@ -27,7 +27,8 @@
 
 <% @calendars.each do |cal| %>
   <div>
-  <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
+  <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", 
+      store_calendar_guest_show_path(@store.id, cal.id) %>
   </div>
 <% end %>
 
@@ -57,7 +58,7 @@
         <% 9.times do |n| %>
           <% if array[k][n] != nil %>
             <% a = array[k][n] %>
-            <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_path(@store.id, a.id), method: :get %>
+            <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_guests_path(@store.id, a.id), method: :get %>
           <% end %>
         <% end %>
       </div>
