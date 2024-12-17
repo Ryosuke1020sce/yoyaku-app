@@ -1,4 +1,5 @@
 class CalendarsController < ApplicationController
+  before_action :set_various, only: [:show, :guest_show]
 
   def create
     if !same_date_exist
@@ -10,10 +11,11 @@ class CalendarsController < ApplicationController
   end
 
   def show
-    @store = Store.find(params[:store_id])
-    @reservations = Reservation.where(store_id: params[:store_id])
     @calendar = Calendar.find(params[:id])
-    @calendars = Calendar.where(store_id: params[:store_id])
+  end
+
+  def guest_show
+    @calendar = Calendar.find(params[:calendar_id])
   end
 
   private
@@ -29,6 +31,12 @@ class CalendarsController < ApplicationController
     else
       return true
     end
+  end
+
+  def set_various
+    @store = Store.find(params[:store_id])
+    @reservations = Reservation.where(store_id: params[:store_id])
+    @calendars = Calendar.where(store_id: params[:store_id])
   end
 
 end

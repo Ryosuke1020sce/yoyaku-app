@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :reservations, only: [:new, :create, :show, :edit, :update, :destroy]
     resources :calendars, only: [:create, :show] do
       resources :rsv_groups, only: [:new, :create, :edit, :update]
+      get 'guest_show', to: 'calendars#guest_show'
     end
   end
 
