@@ -101,15 +101,12 @@
 
 | Column      | Type       | Options     |
 | ----------- | ---------- | ----------- |
-| guest_name  | string     | null: false |
-| guest_mail  | string     | null: false |
-| people_n    | integer    | null: false |
-| guest_tel   | integer    | null: false |
-| check_in    | time?      | null: false |
+| name        | string     | null: false |
+| mail        | string     |             |
+| people_n    | integer    |             |
+| tel         | string     |             |
 | reservation | references | null: false, foreign_key: true |
 
 ## Association
 
 - belongs_to :reservation
-
-

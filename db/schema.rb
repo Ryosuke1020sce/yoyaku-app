@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_16_085319) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_17_052630) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -45,6 +45,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_16_085319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_calendars_on_store_id"
+  end
+
+  create_table "guests", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "mail"
+    t.integer "people_n"
+    t.string "tel"
+    t.bigint "reservation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_id"], name: "index_guests_on_reservation_id"
   end
 
   create_table "reservations", charset: "utf8mb3", force: :cascade do |t|
@@ -97,6 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_16_085319) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendars", "stores"
+  add_foreign_key "guests", "reservations"
   add_foreign_key "reservations", "rsv_groups"
   add_foreign_key "reservations", "stores"
   add_foreign_key "stores", "users"
