@@ -110,3 +110,16 @@
 ## Association
 
 - belongs_to :reservation
+- has_one :rsv_number
+
+
+## rsv_number テーブル
+
+| Column        | Type       | Options     |
+| ------------- | ---------- | ----------- |
+| unique-number | string     | null: false, unique: true      |
+| guest         | references | null: false, foreign_key: true |
+
+## Association
+
+- belongs_to :guest

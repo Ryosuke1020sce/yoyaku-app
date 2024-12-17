@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_17_052630) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_17_082557) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -81,6 +81,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_17_052630) do
     t.index ["calendar_id"], name: "index_rsv_groups_on_calendar_id"
   end
 
+  create_table "rsv_numbers", charset: "utf8mb3", force: :cascade do |t|
+    t.string "unique_number", null: false
+    t.bigint "guest_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guest_id"], name: "index_rsv_numbers_on_guest_id"
+  end
+
   create_table "stores", charset: "utf8mb3", force: :cascade do |t|
     t.string "store_name", null: false
     t.text "store_guide", null: false
@@ -111,5 +119,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_17_052630) do
   add_foreign_key "guests", "reservations"
   add_foreign_key "reservations", "rsv_groups"
   add_foreign_key "reservations", "stores"
+  add_foreign_key "rsv_numbers", "guests"
   add_foreign_key "stores", "users"
 end
