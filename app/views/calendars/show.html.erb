@@ -1,6 +1,5 @@
 <%= "#{@store.store_name} の予約カレンダー" %>
 <h3>※予約枠を作成してください。</h3>
-<h3>カレンダーモデル：別の月の表示が可能！</h3>
 
 <% one_day = @calendar.std_date %>
 <% one_day_w = one_day.wday %>
@@ -22,48 +21,68 @@
   <% end %>
 <% end %>
 
-<h2>
+<div class="calendar-title">
   <%= "#{@calendar.std_date.month} 月の予約枠" %>
-</h2>
+</div>
 
-<% @calendars.each do |cal| %>
-  <div>
-  <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
-  </div>
-<% end %>
+<div class = "other-calendars">
+  <% @calendars.each do |cal| %>
+    <div>
+    <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
+    </div>
+  <% end %>
+</div>
 
 <% week_name = ["日","月","火","水","木","金","土"] %>
-<div class = "weekday-box">
+
+<% sun = "week-day-sun" %>
+<% d = "week-day" %>
+<% sat = "week-day-sat" %>
+<% class_name = [sun, d, d, d, d, d, sat] %>
+
+<div class = "week-row">
 <% 7.times do |i| %>
-  <div class = "weekday-name">
+  <div class = <%= class_name[i] %>>
     <%= week_name[i] %> 
   </div>
 <% end %>
 </div>
 
+<% sun2 = "daybox-sun" %>
+<% d2 = "daybox" %>
+<% sat2 = "daybox-sat" %>
+<% class_name2 = [sun2, d2, d2, d2, d2, d2, sat2] %>
+
 <% k = 0 %>
+<% a_day = start_day %>
 
 <% 6.times do %>
-  <div class = "week-box">
-  <% 7.times do %>
-    <div class = "day-box">
+  <% unless (a_day.year * 100 + a_day.month) > (one_day.year * 100 + one_day.month) %>
+  <div class = "daybox-row">
+  <% 7.times do |ii| %>
+    <div class = <%= class_name2[ii] %>>
       <div class = "day-name">
         <% a_day = start_day + x %>
         <% m = a_day.month %>
         <% d = a_day.day %>
-        <%= "#{m}/#{d}" %> 
+        <% if m == one_day.month %>
+          <%= "#{m}/#{d}" %> 
+        <% end %>  
         <% x += 1 %>
       </div>
-      <div class = "day-content">
-        <% 9.times do |n| %>
-          <% if array[k][n] != nil %>
-            <% a = array[k][n] %>
-            <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_path(@store.id, a.id), method: :get %>
+      <div class = "rsv">
+        <% if m == one_day.month %>
+          <% 9.times do |n| %>
+            <% if array[k][n] != nil %>
+              <% a = array[k][n] %>
+              <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_path(@store.id, a.id), method: :get %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
     </div>  
     <% k += 1 %>
+  <% end %>
   <% end %>
   </div>
 <% end %>

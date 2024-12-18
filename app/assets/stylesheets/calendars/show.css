@@ -1,0 +1,81 @@
+
+.calendar-title{
+  width: 500px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.other-calendars{
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.week-row{
+  width: 600px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.week-day, .week-day-sun, .week-day-sat{
+  width: 80px;
+  height: 20px;
+  border: 1px solid gray; 
+  text-align: center; 
+  color: white;
+}
+
+.week-day{
+  background-color: rgb(165, 165, 165);
+}
+
+.week-day-sun{
+  background-color: rgb(203, 94, 64);
+}
+
+.week-day-sat{
+  background-color: rgb(60, 101, 183);
+}
+
+.daybox-row{
+  width: 600px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.daybox, .daybox-sun, .daybox-sat{
+  width: 80px;
+  height: 100px;
+  
+  border: 1px solid gray;
+}
+
+.daybox{
+  background-color: rgb(237, 237, 237);
+}
+
+.daybox-sun{
+  background-color: rgb(239, 177, 177);
+}
+
+.daybox-sat{
+  background-color: rgb(177, 205, 239);
+}
+
+.day-name{
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  margin: 3px 0 5px 0 ;
+}
+
+.rsv{
+  width: 100%;
+  height: 80px;
+  text-align: center;
+  font-size: 12px;
+}
