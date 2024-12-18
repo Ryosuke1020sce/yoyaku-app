@@ -1,0 +1,7 @@
+.item-box-img {
+  height: 50vh;
+  width: 60vw;
+  min-height: 300px;
+  background-color: rgb(205, 202, 202);
+  object-fit: contain;
+}

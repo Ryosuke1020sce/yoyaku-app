@@ -1,0 +1,98 @@
+<%= "#{@store.store_name} の予約カレンダー" %>
+<h3>※予約枠を作成してください。</h3>
+<h3>カレンダーモデル：別の月の表示が可能！</h3>
+
+<% one_day = @calendar.std_date %>
+<% one_day_w = one_day.wday %>
+<% start_day = one_day - one_day_w %>
+<% x = 0 %>
+
+<%# 配列に予約枠を割り当てる %>
+
+<% array = Array.new(42) {Array.new(10)} %>
+
+<% @reservations.each do |rsv| %>
+  <% date_d = rsv.rsv_date - start_day %>
+  <% n = 0 %>
+  <% if 0 <= date_d && date_d <= 41 %>
+    <% while array[date_d][n] != nil %>
+      <% n += 1 %>
+    <% end %>
+    <% array[date_d][n] = rsv %>
+  <% end %>
+<% end %>
+
+<h2>
+  <%= "#{@calendar.std_date.month} 月の予約枠" %>
+</h2>
+
+<% @calendars.each do |cal| %>
+  <div>
+  <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
+  </div>
+<% end %>
+
+<% week_name = ["日","月","火","水","木","金","土"] %>
+<div class = "weekday-box">
+<% 7.times do |i| %>
+  <div class = "weekday-name">
+    <%= week_name[i] %> 
+  </div>
+<% end %>
+</div>
+
+<% k = 0 %>
+
+<% 6.times do %>
+  <div class = "week-box">
+  <% 7.times do %>
+    <div class = "day-box">
+      <div class = "day-name">
+        <% a_day = start_day + x %>
+        <% m = a_day.month %>
+        <% d = a_day.day %>
+        <%= "#{m}/#{d}" %> 
+        <% x += 1 %>
+      </div>
+      <div class = "day-content">
+        <% 9.times do |n| %>
+          <% if array[k][n] != nil %>
+            <% a = array[k][n] %>
+            <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_path(@store.id, a.id), method: :get %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>  
+    <% k += 1 %>
+  <% end %>
+  </div>
+<% end %>
+<%  %>
+
+<div>
+<%= link_to "予約枠の新規登録", new_store_reservation_path, method: :get %>
+</div>
+
+<div>
+<%= link_to "予約枠の一括新規登録", new_store_calendar_rsv_group_path(@store.id, @calendar.id), method: :get %>
+</div>
+
+<div>
+<%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
+</div>
+<div>
+<%= link_to "店舗一覧に戻る", root_path, method: :get %>
+</div>
+
+<div>
+<%= link_to "ゲスト用カレンダーへ", store_calendar_guests_show_path(@store.id, @calendar.id), method: :get %>
+</div>
+
+<%= form_with model: @calendar, url: store_calendars_path , local: true do |f| %>
+
+  <%= f.select :std_date, [["2024年12月","2024/12/1"],
+      ["2025年1月","2025/1/1"],["2025年2月","2025/2/1"]] %>
+  <%= f.submit "カレンダー作成" ,class:"sell-btn" %>
+
+<% end %>
+

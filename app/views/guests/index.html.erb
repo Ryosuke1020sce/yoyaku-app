@@ -1,0 +1,40 @@
+<h3>予約画面</h3>
+
+<% rsv = @reservation %>
+<div><%= "店名：#{rsv.store.store_name}" %></div>
+<div><%= "日時：#{rsv.rsv_date}" %></div>
+<div><%= "料金：#{rsv.fee}" %></div>
+<br>
+
+<%= form_with model: @guest, url: store_reservation_guests_path(rsv.store_id, rsv.id) , local: true do |f| %>
+
+  <div class="weight-bold-text">
+    お名前
+    <span class="indispensable">（必須）</span>
+  </div>
+  <%= f.text_field :name, class:"items-text", placeholder:"フルネーム：カナでご記入ください" %>
+
+  <div class="weight-bold-text">
+    メールアドレス
+  </div>
+  <%= f.email_field :mail, class:"items-text",
+      id:"item-name", placeholder:"メールアドレス" %>
+
+  <div class="weight-bold-text">
+    お客様の人数
+  </div>
+  <%= f.text_field :people_n, class:"items-text", placeholder:"半角数字でご記入ください" %>
+
+  <div class="weight-bold-text">
+    電話番号
+  </div>
+  <%= f.text_field :tel, class:"items-text", placeholder:"ハイフン (-) ありでご記入ください" %>
+
+  <br><br>
+
+  <div class="sell-btn-contents">
+    <%= f.submit "予約する" ,class:"sell-btn" %>
+    <%= link_to '選択画面へもどる', store_calendar_guests_show_path(rsv.store_id, @calendar.id), class:"back-btn" %>
+  </div>
+
+  <% end %>

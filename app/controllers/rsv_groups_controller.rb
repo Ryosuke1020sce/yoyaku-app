@@ -1,5 +1,6 @@
 class RsvGroupsController < ApplicationController
   before_action :set_store, only: [:new, :edit, :update]
+  before_action :set_calendar, only: [:new, :edit, :update]
   before_action :set_rsv_group, only: [:edit, :update]
 
   def new
@@ -8,11 +9,11 @@ class RsvGroupsController < ApplicationController
 
   def create
  
-    y = params[:reservation][:today_y].to_i
-    m = params[:reservation][:today_m].to_i
+    y = params[:reservation][:one_day_y].to_i
+    m = params[:reservation][:one_day_m].to_i
     n = params[:reservation][:last_i].to_i
 
-    @rsv_group = RsvGroup.create(store_id: params[:store_id])
+    @rsv_group = RsvGroup.create(calendar_id: params[:calendar_id])
     save_successed = false
 
     n.times do |i|
@@ -29,7 +30,7 @@ class RsvGroupsController < ApplicationController
     end    
 
     if save_successed
-      redirect_to store_reservations_path(params[:store_id])
+      redirect_to store_calendar_path(params[:store_id], params[:calendar_id])
     end
 
   end
@@ -55,7 +56,7 @@ class RsvGroupsController < ApplicationController
     end
 
     if save_successed
-      redirect_to store_reservations_path(@store.id)
+      redirect_to store_calendar_path(@store.id, @calendar.id)
     end
   end
 
@@ -69,6 +70,10 @@ class RsvGroupsController < ApplicationController
 
   def set_store
     @store = Store.find(params[:store_id])
+  end
+
+  def set_calendar
+    @calendar = Calendar.find(params[:calendar_id])
   end
 
   def set_rsv_group

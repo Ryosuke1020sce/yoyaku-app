@@ -30,6 +30,7 @@
 - belongs_to :user
 - has_one :option
 - has_many :reservations
+- has_many :calendars
 
 
 ## options テーブル
@@ -74,26 +75,51 @@
 | Column          | Type       | Options     |
 | --------------- | ---------- | ----------- |
 | store           | references | null: false, foreign_key: true |
+| calendar        | references | null: false, foreign_key: true |
 
 ## Association
 
 - belongs_to :store
+- belongs_to :calendar
 - has_many :reservations
+
+
+## calendar テーブル
+
+| Column          | Type       | Options     |
+| --------------- | ---------- | ----------- |
+| std_date        | date       | null: false |
+| store           | references | null: false, foreign_key: true |
+
+## Association
+
+- belongs_to :store
+- has_many :rsv_groups
 
 
 ## guests テーブル
 
 | Column      | Type       | Options     |
 | ----------- | ---------- | ----------- |
-| guest_name  | string     | null: false |
-| guest_mail  | string     | null: false |
-| people_n    | integer    | null: false |
-| guest_tel   | integer    | null: false |
-| check_in    | time?      | null: false |
+| name        | string     | null: false |
+| mail        | string     |             |
+| people_n    | integer    |             |
+| tel         | string     |             |
 | reservation | references | null: false, foreign_key: true |
 
 ## Association
 
 - belongs_to :reservation
+- has_one :rsv_number
 
 
+## rsv_number テーブル
+
+| Column        | Type       | Options     |
+| ------------- | ---------- | ----------- |
+| unique-number | string     | null: false, unique: true      |
+| guest         | references | null: false, foreign_key: true |
+
+## Association
+
+- belongs_to :guest

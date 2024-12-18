@@ -1,10 +1,7 @@
 <%= "#{@store.store_name} の予約カレンダー" %>
-<h1>※予約枠を作成してください。</h1>
+<h3>※予約したい日付を選択してください</h3>
 
-<% today = Date.today %>
-<% today_m = today.month %>
-<% today_y = today.year %>
-<% one_day = Date.new(today_y,today_m,1) %>
+<% one_day = @calendar.std_date %>
 <% one_day_w = one_day.wday %>
 <% start_day = one_day - one_day_w %>
 <% x = 0 %>
@@ -24,10 +21,16 @@
   <% end %>
 <% end %>
 
-
 <h2>
-  <%= "#{today_m} 月の予約枠" %>
+  <%= "#{@calendar.std_date.month} 月の予約枠" %>
 </h2>
+
+<% @calendars.each do |cal| %>
+  <div>
+  <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", 
+      store_calendar_guests_show_path(@store.id, cal.id) %>
+  </div>
+<% end %>
 
 <% week_name = ["日","月","火","水","木","金","土"] %>
 <div class = "weekday-box">
@@ -55,7 +58,7 @@
         <% 9.times do |n| %>
           <% if array[k][n] != nil %>
             <% a = array[k][n] %>
-            <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_path(@store.id, a.id), method: :get %>
+            <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_guests_path(@store.id, a.id), method: :get %>
           <% end %>
         <% end %>
       </div>
@@ -67,24 +70,5 @@
 <%  %>
 
 <div>
-<%= link_to "予約枠の新規登録", new_store_reservation_path, method: :get %>
+<%= link_to "予約照会（予約番号の入力へ）", store_calendar_guests_search_path(@store.id, @calendar.id), method: :get %>
 </div>
-
-<div>
-<%= link_to "予約枠の一括新規登録", new_store_rsv_group_path, method: :get %>
-</div>
-
-<div>
-<%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
-</div>
-<div>
-<%= link_to "店舗一覧に戻る", root_path, method: :get %>
-</div>
-
-<% @reservations.each do |rsv| # これは仮なので後で削除しよう %>
-<div>
-  <%= rsv.rsv_date %>
-  <%= "　#{rsv.rsv_n}枠"  %>
-</div>
-<% end %>
-
