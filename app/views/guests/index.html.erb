@@ -34,7 +34,7 @@
 
   <div class="sell-btn-contents">
     <%= f.submit "予約する" ,class:"sell-btn" %>
-    <%= link_to '選択画面へもどる', store_calendar_guest_show_path(rsv.store_id, @calendar.id), class:"back-btn" %>
+    <%= link_to '選択画面へもどる', store_calendar_guests_show_path(rsv.store_id, @calendar.id), class:"back-btn" %>
   </div>
 
   <% end %>

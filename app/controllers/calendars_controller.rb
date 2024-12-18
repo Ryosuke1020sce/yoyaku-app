@@ -1,5 +1,5 @@
 class CalendarsController < ApplicationController
-  before_action :set_various, only: [:show, :guest_show]
+  before_action :set_various, only: [:show, :guests_show, :guests_search]
 
   def create
     if !same_date_exist
@@ -14,8 +14,21 @@ class CalendarsController < ApplicationController
     @calendar = Calendar.find(params[:id])
   end
 
-  def guest_show
+  def guests_show
     @calendar = Calendar.find(params[:calendar_id])
+  end
+
+  def guests_search
+    @calendar = Calendar.find(params[:calendar_id])
+    @rsv_number = RsvNumber.new
+  end
+
+  def guests_confirm
+    @rsv_number = RsvNumber.find_by(unique_number: params[:rsv_number][:unique_number])
+    @guest = Guest.find(@rsv_number.guest_id)
+    @reservation = Reservation.find(@guest.reservation_id)
+    @store = Store.find(@reservation.store_id)
+    redirect_to store_reservation_guest_path(@store.id, @reservation.id, @guest.id)
   end
 
   private

@@ -1,0 +1,19 @@
+<div>予約確認画面</div>
+<br>
+
+<div>ご予約完了の際の「ご予約番号」をご入力ください</div>
+
+<%= form_with model: @rsv_number, url: store_calendar_guests_confirm_path(@store.id, @calendar.id) , local: true do |f| %>
+
+  <%= f.text_field :unique_number, class:"items-text", placeholder:"ご予約番号をこちらにご入力ください（英数字10桁）" %>
+
+  <br><br>
+
+  <div class="sell-btn-contents">
+    <%= f.submit "照会する" ,class:"sell-btn" %>
+    <%= link_to "カレンダー画面へもどる", store_calendar_guests_show_path(@store.id, @calendar.id), method: :get %>
+  </div>
+
+<% end %>
+<div></div>
+<div></div>

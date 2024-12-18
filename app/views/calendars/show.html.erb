@@ -85,7 +85,7 @@
 </div>
 
 <div>
-<%= link_to "ゲスト用カレンダーへ", store_calendar_guest_show_path(@store.id, @calendar.id), method: :get %>
+<%= link_to "ゲスト用カレンダーへ", store_calendar_guests_show_path(@store.id, @calendar.id), method: :get %>
 </div>
 
 <%= form_with model: @calendar, url: store_calendars_path , local: true do |f| %>

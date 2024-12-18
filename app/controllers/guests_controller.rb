@@ -23,6 +23,10 @@ class GuestsController < ApplicationController
     end
   end
 
+  def show
+    @guest = Guest.find(params[:id])
+  end
+
   def complete
     @guest = Guest.find(params[:id])
   end
@@ -38,19 +42,16 @@ class GuestsController < ApplicationController
     big_letters = ('A'..'Z').to_a
     small_letters = ('a'..'z').to_a
     letters = big_letters + small_letters
-
     v = big_letters.sample
 
     4.times do
       v += letters.sample
     end
-
     5.times do
       v += rand(0..9).to_s
     end
 
     return v
-
   end
 
 end

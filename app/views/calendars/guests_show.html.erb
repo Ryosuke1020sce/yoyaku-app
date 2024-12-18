@@ -28,7 +28,7 @@
 <% @calendars.each do |cal| %>
   <div>
   <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", 
-      store_calendar_guest_show_path(@store.id, cal.id) %>
+      store_calendar_guests_show_path(@store.id, cal.id) %>
   </div>
 <% end %>
 
@@ -69,3 +69,6 @@
 <% end %>
 <%  %>
 
+<div>
+<%= link_to "予約照会（予約番号の入力へ）", store_calendar_guests_search_path(@store.id, @calendar.id), method: :get %>
+</div>
