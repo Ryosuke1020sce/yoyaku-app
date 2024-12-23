@@ -1,0 +1,56 @@
+
+.mini-week-row{
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.mini-week-day-sun, .mini-week-day, .mini-week-day-sat{
+  width: 50px;
+  border: 1px solid gray; 
+  text-align: center; 
+  color: white;
+  border-radius: 5px;
+}
+
+.mini-week-day-sun{
+  background-color: rgb(203, 94, 64);
+}
+
+.mini-week-day{
+  background-color: rgb(165, 165, 165);
+}
+
+.mini-week-day-sat{
+  background-color: rgb(60, 101, 183);
+}
+
+.mini-daybox-row{
+  width: 400px;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; 
+}
+
+.mini-daybox-sun, .mini-daybox, .mini-daybox-sat{
+  width: 50px;
+  height: 50px;
+  border: 1px gray solid;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.mini-daybox-sun{
+  background-color: rgb(239, 177, 177);
+}
+
+.mini-daybox{
+  background-color: rgb(237, 237, 237);
+}
+
+.mini-daybox-sat{
+  background-color: rgb(177, 205, 239);
+}
+

@@ -24,15 +24,17 @@ class ReservationsController < ApplicationController
 
   def update
     if @reservation.update(reservation_params)
-      redirect_to store_reservations_path(@store.id)
+      search_calendar(@reservation.rsv_date)
+      redirect_to store_calendar_path(@store.id, @calendar.id)
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  def destroy # 「本当に削除しますか？」の確認を追加したい！JavaScriptで
+  def destroy
     @reservation.destroy
-    redirect_to store_reservations_path(@store.id)
+    search_calendar(@reservation.rsv_date)
+    redirect_to store_calendar_path(@store.id, @calendar.id)
   end
 
   private
@@ -49,4 +51,12 @@ class ReservationsController < ApplicationController
   def set_reservation
     @reservation = Reservation.find(params[:id])
   end 
+
+  def search_calendar(date)
+    y = date.year
+    m = date.month
+    s_date = Date.new(y,m,1)
+    @calendar = Calendar.find_by(std_date: s_date, store_id: @store.id)
+  end
+
 end

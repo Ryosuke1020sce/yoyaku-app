@@ -6,24 +6,65 @@
 <% one_day_w = one_day.wday %>
 <% start_day = one_day - one_day_w %>
 
+<% x = 0 %>
+
+<% week_name = ["日","月","火","水","木","金","土"] %>
+
+<% sun = "mini-week-day-sun" %>
+<% d = "mini-week-day" %>
+<% sat = "mini-week-day-sat" %>
+<% class_name = [sun, d, d, d, d, d, sat] %>
+
+<div class = "mini-week-row">
+<% 7.times do |i| %>
+  <div class = <%= class_name[i] %>>
+    <%= week_name[i] %> 
+  </div>
+<% end %>
+</div>
+
+<% sun2 = "mini-daybox-sun" %>
+<% d2 = "mini-daybox" %>
+<% sat2 = "mini-daybox-sat" %>
+<% class_name2 = [sun2, d2, d2, d2, d2, d2, sat2] %>
+
+<% k = 0 %>
+<% a_day = start_day %>
+<% d_sym = Array.new(31) %>
+<% iii = 0 %>
+<% last_i = 31 %>
+
 <%= form_with model: [@store, @reservation], url: store_calendar_rsv_groups_path , local: true do |f| %>
 
-  <div class = "day-select">
-  <% d_sym = Array.new(31) %>
-  <% last_i = 31 %>
-  <% 31.times do |i| %>
-    <% a_day = one_day + i %>
-    <% if a_day.month == one_day_m %>
-      <% d_sym[i] = "day_#{i}".to_sym %>
-      <div class = "day">
-        <%= f.check_box d_sym[i] %>
-        <%= "#{one_day_m}/#{a_day.day}" %>
+<% 6.times do %>
+  <% unless (a_day.year * 100 + a_day.month) > (one_day.year * 100 + one_day.month) %>
+  <div class = "mini-daybox-row">
+  <% 7.times do |ii| %>
+    <div class = <%= class_name2[ii] %>>
+      <div>
+        <% a_day = start_day + x %>
+        <% m = a_day.month %>
+        <% d = a_day.day %>
+        <% if m == one_day.month %>
+          <% d_sym[iii] = "day_#{iii}".to_sym %>
+          <div>
+            <%= "#{m}/#{d}" %><br> 
+            <%= f.check_box d_sym[iii] %>
+            <% iii += 1 %>
+          </div>
+        <% else%>
+          <div></div>
+        <% end %>
+        <% x += 1 %>
       </div>
-    <% else %>
-      <% last_i = i - 1 %>  
-    <% end %>
+
+    </div>  
+    <% k += 1 %>
+  <% end %>
+  <% last_i = iii - 1 %>
   <% end %>
   </div>
+<% end %>
   
   <br>
 
