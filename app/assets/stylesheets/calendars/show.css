@@ -1,14 +1,23 @@
 
-.calendar-title{
+.general-box{
   width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  margin: 10px 20px;
+}
+
+.calendar-title{
+  width: 550px;
   font-size: 30px;
   text-align: center;
 }
 
 .other-calendars{
-  width: 500px;
+  width: 550px;
   display: flex;
   justify-content: space-between;
+  margin: 10px 20px;
 }
 
 .week-row{

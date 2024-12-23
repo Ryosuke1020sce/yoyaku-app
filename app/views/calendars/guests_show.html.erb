@@ -1,5 +1,9 @@
-<%= "#{@store.store_name} の予約カレンダー" %>
-<h3>※予約したい日付を選択してください</h3>
+<h3 class = "general-box">
+  <%= "#{@store.store_name} の予約カレンダー" %>
+</h3>
+<h4 class = "general-box">
+  ※予約したい日付を選択してください
+</h4>
 
 <% one_day = @calendar.std_date %>
 <% one_day_w = one_day.wday %>
@@ -21,14 +25,14 @@
   <% end %>
 <% end %>
 
-<h2>
+<h2  class = "general-box">
   <%= "#{@calendar.std_date.month} 月の予約枠" %>
 </h2>
 
 <div class = "other-calendars">
   <% @calendars.each do |cal| %>
     <div>
-    <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
+    <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_guests_show_path(@store.id, cal.id) %>
     </div>
   <% end %>
 </div>
@@ -75,7 +79,13 @@
           <% 9.times do |n| %>
             <% if array[k][n] != nil %>
               <% a = array[k][n] %>
-              <%= link_to "#{a.explain}:#{a.rsv_n}枠", store_reservation_guests_path(@store.id, a.id), method: :get %>
+              <% gn = Guest.where(reservation_id: a.id).count %>
+              <% zan = a.rsv_n - gn %>
+              <% if zan > 0 %>
+                <%= link_to "残り #{zan}枠", store_reservation_guests_path(@store.id, a.id), method: :get %>
+              <% else %>
+                <%= "×" %>  
+              <% end%>  
             <% end %>
           <% end %>
         <% end %>
@@ -87,7 +97,14 @@
   </div>
 <% end %>
 <%  %>
-
-<div>
+<br>
+<div class = "general-box">
 <%= link_to "予約照会（予約番号の入力へ）", store_calendar_guests_search_path(@store.id, @calendar.id), method: :get %>
 </div>
+<br>
+<div class = "general-box">
+<% if user_signed_in? %>
+  <%= qrcode_tag request.url, module_size: 4 %>
+<% end %>
+</div>
+<br>
