@@ -15,7 +15,9 @@
 <div><%= "店舗名：#{s.store_name}" %></div>
 
 <br>
-<div><%= "ご予約番号：　#{n.unique_number}　" %></div>
+<% if n != nil %>
+  <div><%= "ご予約番号：　#{n.unique_number}　" %></div>
+<% end %>
 
 <br>
 <div>お客様のご来店を心よりお待ちしております。</div>

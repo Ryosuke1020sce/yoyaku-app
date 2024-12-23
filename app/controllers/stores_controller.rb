@@ -53,6 +53,10 @@ class StoresController < ApplicationController
     redirect_to root_path
   end
 
+  def select_month
+    @store = Store.find(params[:store_id])
+    @calendars = Calendar.where(store_id: @store.id)
+  end
 
   private
 

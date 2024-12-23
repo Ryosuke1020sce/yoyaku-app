@@ -1,0 +1,11 @@
+<div>予約状況一覧の表示</div>
+
+<div>一覧を表示する月を選択してください。</div>
+
+  <ul>
+  <% @calendars.each do |cal| %>
+    <li>
+    <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_disp_list_path(cal.store_id, cal.id) %>
+    </li>
+  <% end %>
+  </ul>

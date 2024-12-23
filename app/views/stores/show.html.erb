@@ -38,9 +38,12 @@
   <% @calendars.each do |cal| %>
     <% today = Date.today %>
     <% if cal.std_date.year == today.year && cal.std_date.month == today.month %>
-    <%= link_to "この店舗のカレンダーへ", store_calendar_path(@store.id, cal.id), method: :get %>
+    <%= link_to "予約枠作成画面へ", store_calendar_path(@store.id, cal.id), method: :get %>
     <% end %>
   <% end %>  
+  </div>
+  <div>
+    <%= link_to "予約状況一覧へ", store_select_month_path(@store.id), method: :get %>
   </div>  
   <div>
   <%= link_to 'もどる', root_path, class:"back-btn" %>

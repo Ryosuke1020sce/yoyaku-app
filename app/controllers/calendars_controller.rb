@@ -31,6 +31,12 @@ class CalendarsController < ApplicationController
     redirect_to store_reservation_guest_path(@store.id, @reservation.id, @guest.id)
   end
 
+  def disp_list
+    @calendar = Calendar.find(params[:calendar_id])
+    @store = Store.find(@calendar.store_id)
+    @reservations = Reservation.where(store_id: @store.id).order("rsv_date ASC")
+  end
+
   private
 
   def calendar_params

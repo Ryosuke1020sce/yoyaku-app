@@ -1,0 +1,30 @@
+
+<% cal = @calendar %>
+<% y = cal.std_date.year %>
+<% m = cal.std_date.month %>
+<% s = @store %>
+
+<h3>
+  <%= "#{y}年#{m}月 予約状況一覧" %>
+</h3>
+
+<% @reservations.each do |rsv| %>
+  <% d = rsv.rsv_date %>
+  <% if d.year == y && d.month == m %>
+    <% guests = Guest.where(reservation_id: rsv.id) %>
+    <div>
+      <div>
+        <%= "#{rsv.rsv_date} の予約枠：#{rsv.rsv_n}枠／#{guests.count}組様" %>
+      </div>
+      <% if guests != nil %>
+        <% guests.each do |g| %>
+          <div>
+          <%= link_to "#{g.name} 様（#{g.people_n}名様）", store_reservation_guest_path(s.id, rsv.id, g.id) %>
+          </div>
+        <% end %>
+      <% end %>
+      <br>
+    </div>
+  <% end %>
+<% end %>
+<%  %>
