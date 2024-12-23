@@ -72,7 +72,7 @@
     予約枠数
     <span class="indispensable">必須</span>
   </div>
-  <%= f.text_area :rsv_n, class:"items-text", placeholder:"枠数を指定（半角数字）" %>
+  <%= f.text_field :rsv_n, class:"items-text", placeholder:"枠数を指定（半角数字）" %>
 
   <div class="weight-bold-text">
     時間帯
@@ -99,14 +99,14 @@
     人数上限
     <span class="indispensable">必須でない</span>
   </div>
-  <%= f.text_area :upper_people_n, class:"items-text", 
+  <%= f.text_field :upper_people_n, class:"items-text", 
       id:"item-name", placeholder:"お客様の上限人数", maxlength:"3" %>
 
   <div class="weight-bold-text">
     料金
     <span class="indispensable">必須でない</span>
   </div>
-  <%= f.text_area :fee, class:"items-text", 
+  <%= f.text_field :fee, class:"items-text", 
       id:"item-name", placeholder:"設定料金", maxlength:"10" %>
 
   <div class="sell-btn-contents">
