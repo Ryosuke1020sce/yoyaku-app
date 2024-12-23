@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+ .zen-kaku-gothic-new-regular {
+  font-family: "Zen Kaku Gothic New", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: "Zen Kaku Gothic New", serif;
+}
