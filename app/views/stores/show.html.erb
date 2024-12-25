@@ -1,3 +1,6 @@
+<%= render 'layouts/header' %>
+
+  <div class="store-details-container">
   <table class="detail-table">
     <tbody>
       <tr>
@@ -5,10 +8,13 @@
         <td class="detail-value"><%= @store.store_name %></td>
       </tr>
 
-      <div class="item-img-content">
-        <%= image_tag @store.image.variant(resize: '500x500'),
-            class:"item-box-img" if @store.image.attached? %>
-      </div> 
+      <tr>
+        <td colspan="2" class="detail-image">
+          <% if @store.image.attached? %>
+            <%= image_tag @store.image.variant(resize: '500x500'), class: "item-box-img" %>
+          <% end %>
+        </td>
+      </tr>
 
       <tr>
         <th class="detail-item">店舗案内</th>
@@ -25,24 +31,25 @@
     </tbody>
   </table>
 
-  <div>
-  <%= link_to "店舗情報の編集", edit_store_path(@store.id), method: :get, class: "item-red-btn" %>
+  <div class="action-buttons">
+    <%= link_to "店舗情報の編集", edit_store_path(@store.id), method: :get, class: "action-btn edit-btn" %>
+    <%= link_to "削除", store_path(@store.id), data: { turbo_method: :delete }, class: "action-btn delete-btn" %>
+    <%= link_to "複製", "/stores/new_copy/#{@store.id}", method: :get, class: "action-btn copy-btn" %>
+    <%= link_to 'もどる', root_path, class: "action-btn back-btn" %>
   </div>
-  <div>
-  <%= link_to "削除", store_path(@store.id), data: {turbo_method: :delete}, class:"item-destroy" %>
-  </div>
-  <div>
-  <%= link_to "複製", "/stores/new_copy/#{@store.id}", method: :get %>
-  </div>
-  <div>
-  <% @calendars.each do |cal| %>
-    <% today = Date.today %>
-    <% if cal.std_date.year == today.year && cal.std_date.month == today.month %>
-    <%= link_to "この店舗のカレンダーへ", store_calendar_path(@store.id, cal.id), method: :get %>
+  
+  <br>
+
+  <div class="calendar-link">
+    <% @calendars.each do |cal| %>
+      <% today = Date.today %>
+      <% if cal.std_date.year == today.year && cal.std_date.month == today.month %>
+        <%= link_to "この店舗のカレンダーへ", store_calendar_path(@store.id, cal.id), method: :get, class: "calendar-btn" %>
+      <% end %>
     <% end %>
-  <% end %>  
+
   </div>
 
-  <div>
-  <%= link_to 'もどる', root_path, class:"back-btn" %>
-  </div>
+</div>
+
+<br><br>

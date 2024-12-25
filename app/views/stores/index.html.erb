@@ -1,31 +1,39 @@
-    <ul class='lists-right'>
+
+<%= render 'layouts/header' %>
+
+<!-- メインコンテンツ -->
+  <main class="main-content">
+    <div class="welcome-message">
+      <h2>ようこそ！yoyaku-app へ</h2>
       <% if user_signed_in? %>
-      <li><%= link_to current_user.admin_name, "#", class: "user-nickname" %> </li>
-      <li><%= link_to 'ログアウト', destroy_user_session_path, data: {turbo_method: :delete}, class: "logout" %> </li>
-      <% else %>
-      <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
-      <li><%= link_to '新規登録', new_user_registration_path, class: "sign-up" %></li>
+        <div class = "welcome-message-box">
+          <div class = "welcome-message">
+            こんにちは、<%= current_user.admin_name %>さん！
+          </div>  
+          <div class="store-registration">
+            <%= link_to '店舗登録', new_store_path, class: 'btn btn-primary' %>
+          </div>
+        </div>
       <% end %>
-    </ul>
 
-<% if user_signed_in? %>
-  <%= current_user.admin_name %> <br>
-<% end %>
-Hello! yoyaku-app へようこそ！<br>
-<div>
-  <%= link_to '店舗登録', new_store_path, class: 'purchase-btn'  %>
-</div>
+    </div>
 
-<ul class='item-lists'>
-<% if @stores.count != 0 %>
-  <% @stores.each do |store| %>
-  <li class='list'>
-    <%= link_to store_path(store.id) do %>
-      <div>
-        <%= "#{store.store_name}  #{store.store_address}" %>
-      </div>
-    <% end %>
-  <% end %>  
-  </li>
-<% end %>
-</ul>
+    <div class="store-list">
+      <% if @stores.count != 0 %>
+        <h3>店舗一覧</h3>
+        <div class="store-cards">
+          <% @stores.each do |store| %>
+            <div class="store-card">
+              <%= link_to store_path(store.id), class: "store-link" do %>
+                <h4><%= store.store_name %></h4>
+                <p><%= store.store_address %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>現在、登録された店舗がありません。</p>
+      <% end %>
+    </div>
+  </main>
+

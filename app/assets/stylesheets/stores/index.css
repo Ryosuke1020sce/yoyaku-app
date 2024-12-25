@@ -1,0 +1,108 @@
+/* ヘッダー */
+
+.header-container {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.header-nav{
+  display: flex;
+  gap: 15px;
+}
+
+.header-nav a {
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.header-nav a:hover {
+  color: #ffdd57;
+}
+
+/* メインコンテンツ */
+.main-content {
+  padding: 0px 20px 30px 20px;
+}
+
+.welcome-message-box{
+  display: flex;
+}
+
+.welcome-message h2 {
+  font-size: 28px;
+  color: #007bff;
+}
+.welcome-message {
+  margin: 10px 0 ;
+}
+.store-registration {
+  margin: 0 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* 店舗リスト */
+.store-list {
+  margin-top: 30px;
+}
+
+.store-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* ↑ これ使える！自動で幅を調整して並び変えてくれる。 */
+  gap: 20px;
+}
+
+.store-card {
+  background: #fafdff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.store-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.store-card h4 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.store-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.store-link:hover h4 {
+  color: #007bff;
+}
