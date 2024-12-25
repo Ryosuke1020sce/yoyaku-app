@@ -1,4 +1,13 @@
 
+.primary-container{
+  justify-content: center;
+}
+
+.secondary-container{
+  width: 650px;
+  margin: 0 auto;
+}
+
 .general-box{
   width: 500px;
   display: flex;

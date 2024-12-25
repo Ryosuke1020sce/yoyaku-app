@@ -1,132 +1,133 @@
 
 <%= render 'layouts/header' %>
 
-<h3 class = "general-box"><%= "#{@store.store_name} の予約カレンダー" %></h3>
+<div class = "primary-container">
+<div class = "secondary-container">
 
-<% one_day = @calendar.std_date %>
-<% one_day_w = one_day.wday %>
-<% start_day = one_day - one_day_w %>
-<% x = 0 %>
+  <h3 class = "general-box"><%= "#{@store.store_name} の予約カレンダー" %></h3>
 
-<%# 配列に予約枠を割り当てる %>
+  <% one_day = @calendar.std_date %>
+  <% one_day_w = one_day.wday %>
+  <% start_day = one_day - one_day_w %>
+  <% x = 0 %>
+ 
+  <%# 配列に予約枠を割り当てる %>
 
-<% array = Array.new(42) {Array.new(10)} %>
+  <% array = Array.new(42) {Array.new(10)} %>
 
-<% @reservations.each do |rsv| %>
-  <% date_d = rsv.rsv_date - start_day %>
-  <% n = 0 %>
-  <% if 0 <= date_d && date_d <= 41 %>
-    <% while array[date_d][n] != nil %>
-      <% n += 1 %>
+  <% @reservations.each do |rsv| %>
+    <% date_d = rsv.rsv_date - start_day %>
+    <% n = 0 %>
+    <% if 0 <= date_d && date_d <= 41 %>
+      <% while array[date_d][n] != nil %>
+        <% n += 1 %>
+      <% end %>
+      <% array[date_d][n] = rsv %>
     <% end %>
-    <% array[date_d][n] = rsv %>
   <% end %>
-<% end %>
 
-<div class="calendar-title">
-  <%= "#{@calendar.std_date.month} 月の予約枠" %>  
-</div>
-<h4 class = "general-box">　※予約枠を作成してください。</h4>
+  <div class="calendar-title">
+    <%= "#{@calendar.std_date.month} 月の予約枠" %>  
+  </div>
+  <h4 class = "general-box">　※予約枠を作成してください。</h4>
 
-<div class = "other-calendars">
-  <% @calendars.each do |cal| %>
-    <div>
-    <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
+  <div class = "other-calendars">
+    <% @calendars.each do |cal| %>
+      <div>
+      <%= link_to "#{cal.std_date.year}年#{cal.std_date.month}月", store_calendar_path(@store.id, cal.id) %>
+      </div>
+    <% end %>
+  </div>
+
+  <% week_name = ["日","月","火","水","木","金","土"] %>
+
+  <% sun = "week-day-sun" %>
+  <% d = "week-day" %>
+  <% sat = "week-day-sat" %>
+  <% class_name = [sun, d, d, d, d, d, sat] %>
+
+  <div class = "week-row">
+  <% 7.times do |i| %>
+    <div class = <%= class_name[i] %>>
+      <%= week_name[i] %> 
     </div>
   <% end %>
-</div>
-
-<% week_name = ["日","月","火","水","木","金","土"] %>
-
-<% sun = "week-day-sun" %>
-<% d = "week-day" %>
-<% sat = "week-day-sat" %>
-<% class_name = [sun, d, d, d, d, d, sat] %>
-
-<div class = "week-row">
-<% 7.times do |i| %>
-  <div class = <%= class_name[i] %>>
-    <%= week_name[i] %> 
   </div>
-<% end %>
-</div>
 
-<% sun2 = "daybox-sun" %>
-<% d2 = "daybox" %>
-<% sat2 = "daybox-sat" %>
-<% class_name2 = [sun2, d2, d2, d2, d2, d2, sat2] %>
+  <% sun2 = "daybox-sun" %>
+  <% d2 = "daybox" %>
+  <% sat2 = "daybox-sat" %>
+  <% class_name2 = [sun2, d2, d2, d2, d2, d2, sat2] %>
 
-<% k = 0 %>
-<% a_day = start_day %>
+  <% k = 0 %>
+  <% a_day = start_day %>
 
-<% 6.times do %>
-  <% unless (a_day.year * 100 + a_day.month) > (one_day.year * 100 + one_day.month) %>
-  <div class = "daybox-row">
-  <% 7.times do |ii| %>
-    <div class = <%= class_name2[ii] %>>
-      <div class = "day-name">
-        <% a_day = start_day + x %>
-        <% m = a_day.month %>
-        <% d = a_day.day %>
-        <% if m == one_day.month %>
-          <%= "#{m}/#{d}" %> 
-        <% end %>  
-        <% x += 1 %>
-      </div>
-      <div class = "rsv">
+  <% 6.times do %>
+    <% unless (a_day.year * 100 + a_day.month) > (one_day.year * 100 + one_day.month) %>
+    <div class = "daybox-row">
+      <% 7.times do |ii| %> 
+      <div class = <%= class_name2[ii] %>>
+        <div class = "day-name">
+          <% a_day = start_day + x %>
+          <% m = a_day.month %>
+          <% d = a_day.day %>
+          <% if m == one_day.month %>
+            <%= "#{m}/#{d}" %> 
+          <% end %>  
+          <% x += 1 %>
+        </div>
+        <div class = "rsv">
         <% if m == one_day.month %>
           <% 9.times do |n| %>
             <% if array[k][n] != nil %>
               <% a = array[k][n] %>
               <% gn = Guest.where(reservation_id: a.id).count %>
-              <%  %>
               <%= link_to "#{a.rsv_n}枠(予約#{gn}件)", store_reservation_path(@store.id, 
                   a.id), method: :get %>
             <% end %>
           <% end %>
         <% end %>
+        </div>
+      </div>  
+      <% k += 1 %>
+      <% end %>
+    </div>
+    <% end %>
+  <% end %>
+
+  <div class = "links-container-big">
+    <div class = "links-container">
+      <div>
+      <%= link_to "予約枠の新規登録", new_store_reservation_path, method: :get %>
       </div>
+
+      <div>
+      <%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
+      </div>
+    </div>
+
+    <div class = "links-container">
+      <div>
+      <%= link_to "予約枠の一括新規登録", new_store_calendar_rsv_group_path(@store.id, 
+          @calendar.id), method: :get %>
+      </div>
+      <div>  
+        <%= link_to "店舗一覧に戻る", root_path, method: :get %>
+      </div>
+    </div>
+  </div>
+
+  <div class = "bottom-links-container">
+    <div>
+    <%= link_to "予約状況一覧へ", store_select_month_path(@store.id), method: :get %>
     </div>  
-    <% k += 1 %>
-  <% end %>
-  <% end %>
-  </div>
-<% end %>
-
-<div class = "links-container-big">
-  <div class = "links-container">
-    <div>
-    <%= link_to "予約枠の新規登録", new_store_reservation_path, method: :get %>
-    </div>
 
     <div>
-    <%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
+    <%= link_to "お客様用カレンダーへ", store_calendar_guests_show_path(@store.id,
+        @calendar.id), method: :get,  target: :_blank, rel: "noopener noreferrer" %>
     </div>
   </div>
-
-  <div class = "links-container">
-    <div>
-    <%= link_to "予約枠の一括新規登録", new_store_calendar_rsv_group_path(@store.id, 
-        @calendar.id), method: :get %>
-    </div>
-
-    <div>
-    <%= link_to "店舗一覧に戻る", root_path, method: :get %>
-    </div>
-  </div>
-</div>
-
-<div class = "bottom-links-container">
-  <div>
-  <%= link_to "予約状況一覧へ", store_select_month_path(@store.id), method: :get %>
-  </div>  
-
-  <div>
-  <%= link_to "お客様用カレンダーへ", store_calendar_guests_show_path(@store.id,
-      @calendar.id), method: :get,  target: :_blank, rel: "noopener noreferrer" %>
-  </div>
-</div>
-<br>
+  <br>
 
 <% form_with model: @calendar, url: store_calendars_path , local: true do |f| %>
 
@@ -136,3 +137,5 @@
 
 <% end %>
 
+</div>
+</div>
