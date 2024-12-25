@@ -2,7 +2,6 @@
 <%= render 'layouts/header' %>
 
 <h3 class = "general-box"><%= "#{@store.store_name} の予約カレンダー" %></h3>
-<h4 class = "general-box">※予約枠を作成してください。</h4>
 
 <% one_day = @calendar.std_date %>
 <% one_day_w = one_day.wday %>
@@ -25,8 +24,9 @@
 <% end %>
 
 <div class="calendar-title">
-  <%= "#{@calendar.std_date.month} 月の予約枠" %>
+  <%= "#{@calendar.std_date.month} 月の予約枠" %>  
 </div>
+<h4 class = "general-box">　※予約枠を作成してください。</h4>
 
 <div class = "other-calendars">
   <% @calendars.each do |cal| %>
@@ -92,35 +92,40 @@
   <% end %>
   </div>
 <% end %>
-<%  %>
 
-<div>
-<%= link_to "予約枠の新規登録", new_store_reservation_path, method: :get %>
+<div class = "links-container-big">
+  <div class = "links-container">
+    <div>
+    <%= link_to "予約枠の新規登録", new_store_reservation_path, method: :get %>
+    </div>
+
+    <div>
+    <%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
+    </div>
+  </div>
+
+  <div class = "links-container">
+    <div>
+    <%= link_to "予約枠の一括新規登録", new_store_calendar_rsv_group_path(@store.id, 
+        @calendar.id), method: :get %>
+    </div>
+
+    <div>
+    <%= link_to "店舗一覧に戻る", root_path, method: :get %>
+    </div>
+  </div>
 </div>
 
-<div>
-<%= link_to "予約枠の一括新規登録", new_store_calendar_rsv_group_path(@store.id, 
-    @calendar.id), method: :get %>
+<div class = "bottom-links-container">
+  <div>
+  <%= link_to "予約状況一覧へ", store_select_month_path(@store.id), method: :get %>
+  </div>  
+
+  <div>
+  <%= link_to "お客様用カレンダーへ", store_calendar_guests_show_path(@store.id,
+      @calendar.id), method: :get,  target: :_blank, rel: "noopener noreferrer" %>
+  </div>
 </div>
-
-<div>
-<%= link_to "#{@store.store_name} 詳細に戻る", store_path(@store.id), method: :get %>
-</div>
-<div>
-<%= link_to "店舗一覧に戻る", root_path, method: :get %>
-</div>
-
-<br>
-
-<div>
-<%= link_to "予約状況一覧へ", store_select_month_path(@store.id), method: :get %>
-</div>  
-
-<div>
-<%= link_to "お客様用カレンダーへ", store_calendar_guests_show_path(@store.id,
-    @calendar.id), method: :get,  target: :_blank, rel: "noopener noreferrer" %>
-</div>
-
 <br>
 
 <% form_with model: @calendar, url: store_calendars_path , local: true do |f| %>

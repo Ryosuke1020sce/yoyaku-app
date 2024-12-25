@@ -87,3 +87,21 @@
   text-align: center;
   font-size: 12px;
 }
+
+/* リンク群 */
+
+.links-container-big{
+  width: 550px;
+  padding: 20px;
+}
+
+.links-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-links-container{
+  width: 200px;
+  margin: 0 auto;
+
+}

@@ -1,5 +1,10 @@
 /* ヘッダー */
 
+.app-title {
+  color: inherit; /* 親要素の色を引き継ぐ */
+  text-decoration: none; /* 下線を消す */
+}
+
 .header-container {
   background-color: #007bff;
   color: #fff;

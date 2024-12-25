@@ -1,6 +1,8 @@
 <div class="header-container">
   <div class="header-logo">
-    <h1>yoyaku-app</h1>
+    <h1>
+      <%= link_to 'yoyaku-app', root_path, class: "app-title" %>
+    </h1>
   </div>
   <nav class="header-nav">
       <% if user_signed_in? %>
