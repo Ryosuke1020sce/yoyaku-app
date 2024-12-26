@@ -1,65 +1,88 @@
 
 <%= render 'layouts/header' %>
 
-<h3>
-<%= "#{@store.store_name} : #{@reservation.rsv_date} の予約枠詳細" %>
-</h3>
 
-  <table class="detail-table">
-    <tbody>
-      <tr>
-        <th class="detail-item">予約日</th>
-        <td class="detail-value"><%= @reservation.rsv_date %></td>
-      </tr>
-      <tr>
-        <th class="detail-item">予約枠数</th>
-        <td class="detail-value"><%= @reservation.rsv_n %></td>
-      </tr>
-      <tr>
-        <th class="detail-item">予約時間</th>
-        <td class="detail-value"><%= @reservation.rsv_time.name %></td>
-      </tr>
-      <tr>
-        <th class="detail-item">説明</th>
-        <td class="detail-value"><%= @reservation.explain %></td>
-      </tr>
-      <tr>
-        <th class="detail-item">種別</th>
-        <td class="detail-value"><%= @reservation.service_type.name %></td>
-      </tr>
-      <tr>
-        <th class="detail-item">上限人数</th>
-        <td class="detail-value"><%= @reservation.upper_people_n %></td>
-      </tr>
-      <tr>
-        <th class="detail-item">料金</th>
-        <td class="detail-value"><%= @reservation.fee %></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="rsv-title-container">
+  <div class="rsv-title">
+  <%= "#{@store.store_name} : #{@reservation.rsv_date} の予約枠詳細" %>
+  </div>
+</div>
 
-  <div>
-  <%= link_to "予約枠の編集", edit_store_reservation_path(@store.id, @reservation.id), method: :get, class: "item-red-btn" %>
-  </div>
-  <% if @reservation.rsv_group != nil %>
-    <% @rsv_group = RsvGroup.find(@reservation.rsv_group_id) %>
-    <% @calendar = Calendar.find(@rsv_group.calendar_id) %>
-    <div>
-      <%= link_to "予約枠の編集（一括）", edit_store_calendar_rsv_group_path(@store.id, @calendar.id, @reservation.rsv_group_id), method: :get, class: "item-red-btn" %>
-    </div>
-  <% end %>  
-  <div>
-  <%= link_to "削除", store_reservation_path(@store.id, @reservation.id), data: {turbo_method: :delete}, class:"item-destroy" %>
-  </div>
-  <div>
-  <%= link_to "この店舗のカレンダーにもどる", store_calendar_path(@store.id, @calendar.id), method: :get %>
-  </div>
-  <div>
-  <%= link_to 'トップへもどる', root_path, class:"back-btn" %>
+<div class="details-container">
+
+  <!-- 左側: 予約枠詳細 -->
+  <div class="reservation-details">
+
+    <table class="details-table">
+      <tbody>
+        <tr>
+          <th>予約日</th>
+          <td><%= @reservation.rsv_date %></td>
+        </tr>
+        <tr>
+          <th>予約枠数</th>
+          <td><%= @reservation.rsv_n %></td>
+        </tr>
+        <tr>
+          <th>予約時間</th>
+          <td><%= @reservation.rsv_time.name %></td>
+        </tr>
+        <tr>
+          <th>説明</th>
+          <td><%= @reservation.explain %></td>
+        </tr>
+        <tr>
+          <th>種別</th>
+          <td><%= @reservation.service_type.name %></td>
+        </tr>
+        <tr>
+          <th>上限人数</th>
+          <td><%= @reservation.upper_people_n %></td>
+        </tr>
+        <tr>
+          <th>料金</th>
+          <td><%= @reservation.fee %></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <%= form_with model: @guest, url: "/dammy_rsv/#{@store.id}/#{@reservation.id}" , local: true do |f| %>
-    <%= f.submit 'ダミーを作る' %>
+  <!-- 右側: ご予約のお客様一覧 -->
+  <% if @guests.count != 0 %>
+  <div class="guests-list">
+    <h3>ご予約のお客様一覧</h3>
+    <% @guests.each do |g| %>
+      <div class="guest-item">
+        <%= link_to "#{g.name}様（#{g.people_n}名様）",
+            store_reservation_guest_path(@store.id, @reservation.id, g.id) %>
+      </div>
+    <% end %>
+  </div>
   <% end %>
+</div>
 
-  <%= "現在予約済枠数#{Guest.where(reservation_id: @reservation.id).count}" %>
+  <div class="buttons-container">
+  <div class="action-buttons">
+    <%= link_to "予約枠の編集", edit_store_reservation_path(@store.id, @reservation.id),
+        method: :get, class: "action-btn edit-btn" %>
+
+    <% if @reservation.rsv_group != nil %>
+      <% @rsv_group = RsvGroup.find(@reservation.rsv_group_id) %>
+      <% @calendar = Calendar.find(@rsv_group.calendar_id) %>
+      <%= link_to "予約枠の一括編集", edit_store_calendar_rsv_group_path(@store.id, @calendar.id, @reservation.rsv_group_id),
+          method: :get, class: "action-btn edit-btn" %>
+    <% end %> 
+
+    <%= link_to "削除", store_reservation_path(@store.id, @reservation.id), data: {turbo_method: :delete}, class: "action-btn delete-btn" %>
+    <%= link_to 'もどる', store_calendar_path(@store.id, @calendar.id), class: "action-btn back-btn" %>
+  </div>
+  </div>
+  <br>
+
+
+  <div class = "hidden">
+    <%= form_with model: @guest, url: "/dammy_rsv/#{@store.id}/#{@reservation.id}" , local: true do |f| %>
+      <%= f.submit 'ダミーを作る' %>
+    <% end %>
+    <%= "現在予約済枠数#{Guest.where(reservation_id: @reservation.id).count}" %>
+  </div>

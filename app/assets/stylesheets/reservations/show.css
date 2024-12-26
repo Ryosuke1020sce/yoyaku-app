@@ -1,0 +1,92 @@
+/* 全体のコンテナを左右に分割 */
+.details-container, .rsv-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  font-family: Arial, sans-serif;
+}
+
+.rsv-title-container {
+  justify-content: center;
+}
+
+.rsv-title{
+  font-size: 20px;
+}
+
+
+/* 左側: 予約枠詳細 */
+.reservation-details {
+  flex: 3; 
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.details-table th {
+  text-align: center;
+  padding: 8px;
+  background-color: #e8e8e8;
+  border-bottom: 1px solid #ccc;
+}
+
+.details-table td {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* 右側: ご予約のお客様一覧 */
+.guests-list {
+  flex: 3; 
+  background-color: #fffefc;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.guests-list h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.guest-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.guest-item:last-child {
+  border-bottom: none;
+}
+
+/* 全体のレスポンシブ対応 */
+@media (max-width: 768px) {
+  .details-container {
+    flex-direction: column;
+  }
+
+  .reservation-details, .guests-list {
+    width: 100%;
+  }
+}
+
+.buttons-container{
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  font-family: Arial, sans-serif;
+}

@@ -25,6 +25,7 @@ class ReservationsController < ApplicationController
   def show
     search_calendar(@reservation.rsv_date)
     @guest = Guest.new
+    @guests = Guest.where(reservation_id: @reservation.id)
   end
 
   def edit
