@@ -18,7 +18,7 @@
 
       <tr>
         <th class="detail-item">店舗案内</th>
-        <td class="detail-value"><%= @store.store_guide %></td>
+        <td class="detail-value"><%= simple_format(@store.store_guide) %></td>
       </tr>
       <tr>
         <th class="detail-item">店舗住所</th>

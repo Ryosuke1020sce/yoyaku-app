@@ -1,53 +1,45 @@
 
 <%= render 'layouts/header' %>
 
-<div>店舗の編集</div>
-<div><%= @store.store_name %></div>
-<br>
+<div class="form-container">
+  <h1 class="form-title">店舗情報の編集</h1>
+  <div class="form-subtitle"><%= @store.store_name %></div>
 
-<%= form_with model: @store, url: store_path(@store.id) , local: true do |f| %>
+  <%= form_with model: @store, url: store_path(@store.id) , local: true do |f| %>
 
-  <div class="weight-bold-text">
-    店舗名称
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_area :store_name, class:"items-text",
-      id:"item-name", placeholder:"店舗名（必須 40文字まで)",
-      maxlength:"40" %>
+    <div class="form-group">
+      <label for="store_name">店舗名称 <span class="required">必須</span></label>
+      <%= f.text_field :store_name, id: "store_name", class: "form-input", 
+          placeholder:"店舗名（必須 40文字まで)", maxlength:"40" %>
+    </div>
 
-  <div class="weight-bold-text">
-    店舗案内
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_area :store_guide, class:"items-text",
-      id:"item-info", placeholder:"店舗についての詳細情報（必須 1000文字まで）",
-      rows:"7" ,maxlength:"1000" %>
+    <div class="form-group">
+      <label for="store_guide">店舗案内 <span class="required">必須</span></label>
+      <%= f.text_area :store_guide, id: "store_guide", class: "form-input", 
+          placeholder:"店舗についての詳細情報（必須 1000文字まで）", rows:"7", maxlength:"1000" %>
+    </div>
 
-  <div class="weight-bold-text">
-    店舗住所
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_area :store_address, class:"items-text",
-     id:"item-name", placeholder:"店舗住所", maxlength:"200" %>
+    <div class="form-group">
+      <label for="store_address">店舗住所 <span class="required">必須</span></label>
+      <%= f.text_field :store_address, id: "store_address", class: "form-input", 
+          placeholder:"店舗住所", maxlength:"200" %>
+    </div>
 
-  <div class="weight-bold-text">
-    店舗電話番号
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_area :store_tel, class:"items-text", 
-      id:"item-name", placeholder:"電話番号（見やすいように記入してください）", maxlength:"100" %>
+    <div class="form-group">
+      <label for="store_tel">店舗電話番号 <span class="required">必須</span></label>
+      <%= f.text_field :store_tel, id: "store_tel", class: "form-input", 
+          placeholder:"電話番号（見やすいように記入してください）", maxlength:"100" %>
+    </div>
 
-  <div class="weight-bold-text">
-    店舗画像
-    <span class="indispensable">任意</span>
-  </div>
-  <%= f.file_field :image, class:"items-text", id:"item-name" %>
+    <div class="form-group">
+      <label for="store_image">店舗画像 <span class="optional">任意</span></label>
+      <%= f.file_field :image, id: "store_image", class: "form-file-input" %>
+    </div>
 
-  <br><br>
-
-  <div class="sell-btn-contents">
-    <%= f.submit "編集を反映する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', store_path(@store.id), class:"back-btn" %>
-  </div>
+    <div class="form-actions">
+      <%= f.submit "編集を反映する" ,class:"submit-btn" %>
+      <%= link_to 'もどる', store_path(@store.id), class:"back-btn" %>
+    </div>
 
   <% end %>
+</div>
