@@ -1,24 +1,37 @@
-<div>予約確認</div>
-<br>
 
-<% g = @guest %>
-<% r = g.reservation %>
-<% s = r.store %>
-<% n = g.rsv_number %>
+<div class="guest-show">
+<div class="guest-card">
+  <div><b>予約確認</b></div>
+  <br>
 
-<div><%= "お名前：#{g.name} 様" %></div>
-<div><%= "メールアドレス：#{g.mail}" %></div>
-<div><%= "電話番号：#{g.tel}" %></div>
-<div><%= "お客様人数：#{g.people_n}" %></div>
+  <% g = @guest %>
+  <% r = g.reservation %>
+  <% s = r.store %>
+  <% n = g.rsv_number %>
 
-<div><%= "ご予約日：#{japan_date(r.rsv_date)}" %></div>
-<div><%= "店舗名：#{s.store_name}" %></div>
+  <% array = [["お名前", "メールアドレス", "お電話番号", "お客様人数"],
+              [g.name, g.mail, g.tel, g.people_n],
+              ["様","",""," 名様"]] %> 
+  
+  <% 4.times do |i| %>
+    <% if array[1][i] != nil %>
+      <div><%= "#{array[0][i]}：#{array[1][i]}#{array[2][i]}" %></div>
+    <% end %>
+  <% end %>
 
-<br>
-<% if n != nil %>
-  <div><%= "ご予約番号：　#{n.unique_number}　" %></div>
-<% end %>
+  <br>
+  <div><%= "ご予約日：#{japan_date(r.rsv_date)}" %></div>
+  <div><%= "店舗名：#{s.store_name}" %></div>
+  <div><%= "（#{s.store_address}）" %></div>
 
-<br>
-<div>お客様のご来店を心よりお待ちしております。</div>
-<div>当日はお気をつけてお越しくださいませ。</div>
+  <br>
+  <% if n != nil %>
+    <div><%= "ご予約番号：　#{n.unique_number}　" %></div>
+    <br>
+  <% end %>
+  
+  <div>この度はご予約いただき、誠にありがとうございます。</div>
+  <div>お客様のご来店を心よりお待ちしております。</div>
+  <div>当日はお気をつけてお越しくださいませ。</div>
+</div>
+</div>

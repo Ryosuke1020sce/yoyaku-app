@@ -1,7 +1,11 @@
-<h3 class = "general-box">
+
+<div class = "primary-container">
+<div class = "secondary-container">
+
+<h3 class = "center-box">
   <%= "#{@store.store_name} の予約カレンダー" %>
 </h3>
-<h4 class = "general-box">
+<h4 class = "center-box">
   ※予約したい日付を選択してください
 </h4>
 
@@ -25,7 +29,7 @@
   <% end %>
 <% end %>
 
-<h2  class = "general-box">
+<h2  class = "center-box">
   <%= "#{@calendar.std_date.month} 月の予約枠" %>
 </h2>
 
@@ -98,13 +102,16 @@
 <% end %>
 <%  %>
 <br>
-<div class = "general-box">
-<%= link_to "予約照会（予約番号の入力へ）", store_calendar_guests_search_path(@store.id, @calendar.id), method: :get %>
+<div class = "center-box">
+  <%= link_to "予約照会（予約番号の入力へ）", store_calendar_guests_search_path(@store.id, @calendar.id), method: :get %>
 </div>
 <br>
-<div class = "general-box">
+<div class = "center-box">
 <% if user_signed_in? %>
   <%= qrcode_tag request.url, module_size: 4 %>
 <% end %>
 </div>
 <br>
+
+</div>
+</div>

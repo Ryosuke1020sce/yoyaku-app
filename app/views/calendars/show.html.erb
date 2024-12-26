@@ -119,7 +119,7 @@
 
   <div class = "bottom-links-container">
     <div>
-    <%= link_to "予約状況一覧へ", store_select_month_path(@store.id), method: :get %>
+    <%= link_to "予約状況一覧へ", store_calendar_disp_list_path(@calendar.store_id, @calendar.id) %>
     </div>  
 
     <div>

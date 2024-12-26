@@ -51,6 +51,7 @@
   <% if @guests.count != 0 %>
   <div class="guests-list">
     <h3>ご予約のお客様一覧</h3>
+    <div class="right-edge"><%= "ご予約済：#{@guests.count}組様" %></div>
     <% @guests.each do |g| %>
       <div class="guest-item">
         <%= link_to "#{g.name}様（#{g.people_n}名様）",

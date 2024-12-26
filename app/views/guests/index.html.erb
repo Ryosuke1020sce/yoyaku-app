@@ -1,9 +1,15 @@
+
+<div class="guest-show">
+<div class="guest-rsv-card">
+
 <h3>予約画面</h3>
 
 <% rsv = @reservation %>
 <div><%= "店名：#{rsv.store.store_name}" %></div>
 <div><%= "日時：#{rsv.rsv_date}" %></div>
-<div><%= "料金：#{rsv.fee}" %></div>
+<% if rsv.fee != nil %>
+  <div><%= "料金：#{rsv.fee}" %></div>
+<% end %>
 <br>
 
 <%= form_with model: @guest, url: store_reservation_guests_path(rsv.store_id, rsv.id) , local: true do |f| %>
@@ -33,8 +39,13 @@
   <br><br>
 
   <div class="sell-btn-contents">
-    <%= f.submit "予約する" ,class:"sell-btn" %>
-    <%= link_to '選択画面へもどる', store_calendar_guests_show_path(rsv.store_id, @calendar.id), class:"back-btn" %>
+    <div><%= f.submit "予約する" ,class:"submit-btn" %></div>
+    <br>
+    <div><%= link_to '選択画面へもどる', store_calendar_guests_show_path(rsv.store_id, @calendar.id), class:"back-btn" %></div>
+    <br>
   </div>
 
-  <% end %>
+<% end %>
+
+</div>
+</div>

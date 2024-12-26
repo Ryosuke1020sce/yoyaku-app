@@ -90,3 +90,8 @@
   max-width: 600px;
   font-family: Arial, sans-serif;
 }
+
+.right-edge{
+  width: 100%;
+  text-align: right;
+}
