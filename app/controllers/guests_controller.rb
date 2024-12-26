@@ -30,6 +30,15 @@ class GuestsController < ApplicationController
   def complete
     @guest = Guest.find(params[:id])
   end
+  
+  def dammy_rsv
+    @store = Store.find(params[:store_id])
+    @rsv = Reservation.find(params[:reservation_id])
+    rand_n = rand(1..4)
+    @guest = Guest.create(reservation_id: @rsv.id, name: dammy_name, people_n: rand_n)
+    @rsv_number = RsvNumber.create(unique_number: g_unique_number, guest_id: @guest.id)
+    redirect_to store_reservation_path(@store.id, @rsv.id)
+  end
 
   private
 
@@ -52,6 +61,47 @@ class GuestsController < ApplicationController
     end
 
     return v
+  end
+
+  def dammy_name
+
+    name_list = []
+    
+    name_list1 = [
+      "アベヒロシ","ヨシタカユリコ","マエダゴウドン","ヨシザワリョウ","オオタニショウヘイ",
+      "カナダサトシ","マチダケイタ","ヒガマナミ","ワタナベケイスケ","ナカリイサ",
+      "キムラタクヤ","オザワマサヨシ","ナガサワマサミ","オオサワタカオ","ハシモトカンナ",
+      "サカモトマアヤ","ヤマデラコウイチ","ハナエナツキ","ヤマザキワカナ","オオタニイクコ",
+    ]
+
+    name_list2 = [
+      "スズキノボル","ナカムラタケシ","タナカワタル","サトウケンジ","ヤマモトカズナリ",
+      "アライラン","ヤマザキカナミ","カワムラヨシミ","フクナガナオミ","ゴトウルナ",
+      "ウエノヨウヘイ","ナカムラオサム","オカベダイスケ","ウチダユウジ","マツモトカズマ",
+      "ナカジマミオ","ゴトウマリコ","フクダユイ","ササキサチ","オカモトアキコ"
+    ]
+
+    name_list3 = [
+      "カトウトモユキ","ウエハラマサキ","アベユキオ","カワグチタク","ナカノダイキ",
+      "イトウトモコ","ウエノノリコ","イイダエミコ","ネモトユカ","ヨシノミユキ",
+      "アラカワススム","シミズマサミ","イシダマモル","オオヒラユウイチ","ミウラアキラ",
+      "ハタケヤマトモミ","ナガシマメグミ","フカヤアイ","クロダハルミ","ヨコイユウ"
+    ]
+
+    name_list4 = [
+      "サトウヨシフミ","フクナガシュウイチ","コバヤシリョウ","ヤマモトヨシオ","タグチカズヨシ",
+      "ミズグチナオコ","アンドウマナミ","ハシモトユカリ","アサノヒデミ","ヤマギシユミ",
+      "セキツヨシ","ハラダダイスケ","キノシタオキヒロ","オノヨシヒコ","コマツタカノリ",
+      "ナカノリカ","タカギメグミ","スギヤマアイコ","ナガオミナコ","オオツカマリコ"
+    ]
+
+    name_list += name_list1
+    name_list += name_list2
+    name_list += name_list3
+    name_list += name_list4
+    
+    return name_list[rand(0..79)]
+
   end
 
 end

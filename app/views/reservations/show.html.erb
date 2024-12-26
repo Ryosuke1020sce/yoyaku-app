@@ -57,3 +57,9 @@
   <div>
   <%= link_to 'トップへもどる', root_path, class:"back-btn" %>
   </div>
+
+  <%= form_with model: @guest, url: "/dammy_rsv/#{@store.id}/#{@reservation.id}" , local: true do |f| %>
+    <%= f.submit 'ダミーを作る' %>
+  <% end %>
+
+  <%= "現在予約済枠数#{Guest.where(reservation_id: @reservation.id).count}" %>

@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   get 'stores/new_copy/:id', to: 'stores#new_copy'
   patch 'stores_copy', to: 'stores#create_copy'
 
+  post 'dammy_rsv/:store_id/:reservation_id', to: 'guests#dammy_rsv'
+
 end

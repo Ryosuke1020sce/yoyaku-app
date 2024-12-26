@@ -1,10 +1,15 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_store, only: [:show, :edit, :update, :destroy]
+  before_action :set_store, only: [:new, :show, :edit, :update, :destroy]
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 
   def new
     @reservation = Reservation.new
+    today = Date.today
+    y = today.year
+    m = today.month
+    std_date = Date.new(y,m,1)
+    search_calendar(std_date)
   end
 
   def create
@@ -17,6 +22,7 @@ class ReservationsController < ApplicationController
   end
 
   def show
+    @guest = Guest.new
   end
 
   def edit
