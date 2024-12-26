@@ -15,13 +15,15 @@ class ReservationsController < ApplicationController
   def create
     @reservation = Reservation.new(reservation_params)
     if @reservation.save
-      redirect_to store_reservations_path(params[:store_id])
+      search_calendar(@reservation.rsv_date)
+      redirect_to store_calendar_path(@store.id, @calendar.id)
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def show
+    search_calendar(@reservation.rsv_date)
     @guest = Guest.new
   end
 

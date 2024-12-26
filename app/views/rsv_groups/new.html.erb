@@ -1,8 +1,6 @@
 
 <%= render 'layouts/header' %>
 
-<h3>予約枠の新規登録＜一括＞</h3>
-
 <% one_day = @calendar.std_date %>
 <% one_day_m = one_day.month %>
 <% one_day_y = one_day.year %>
@@ -18,31 +16,36 @@
 <% sat = "mini-week-day-sat" %>
 <% class_name = [sun, d, d, d, d, d, sat] %>
 
-<div class = "mini-week-row">
-<% 7.times do |i| %>
-  <div class = <%= class_name[i] %>>
-    <%= week_name[i] %> 
+
+<div class="form-container">
+
+<h1 class="form-title">予約枠の新規登録＜一括＞</h1>
+
+  <div class = "mini-week-row">
+  <% 7.times do |i| %>
+    <div class = <%= class_name[i] %>>
+      <%= week_name[i] %> 
+    </div>
+  <% end %>
   </div>
-<% end %>
-</div>
 
-<% sun2 = "mini-daybox-sun" %>
-<% d2 = "mini-daybox" %>
-<% sat2 = "mini-daybox-sat" %>
-<% class_name2 = [sun2, d2, d2, d2, d2, d2, sat2] %>
+  <% sun2 = "mini-daybox-sun" %>
+  <% d2 = "mini-daybox" %>
+  <% sat2 = "mini-daybox-sat" %>
+  <% class_name2 = [sun2, d2, d2, d2, d2, d2, sat2] %>
 
-<% k = 0 %>
-<% a_day = start_day %>
-<% d_sym = Array.new(31) %>
-<% iii = 0 %>
-<% last_i = 31 %>
+  <% k = 0 %>
+  <% a_day = start_day %>
+  <% d_sym = Array.new(31) %>
+  <% iii = 0 %>
+  <% last_i = 31 %>
 
-<%= form_with model: [@store, @reservation], url: store_calendar_rsv_groups_path , local: true do |f| %>
+  <%= form_with model: [@store, @reservation], url: store_calendar_rsv_groups_path , local: true do |f| %>
 
-<% 6.times do %>
+  <% 6.times do %>
   <% unless (a_day.year * 100 + a_day.month) > (one_day.year * 100 + one_day.month) %>
-  <div class = "mini-daybox-row">
-  <% 7.times do |ii| %>
+   <div class = "mini-daybox-row">
+   <% 7.times do |ii| %>
     <div class = <%= class_name2[ii] %>>
       <div>
         <% a_day = start_day + x %>
@@ -60,67 +63,63 @@
         <% end %>
         <% x += 1 %>
       </div>
-
     </div>  
     <% k += 1 %>
+   <% end %>
+   <% last_i = iii - 1 %>
+   </div>
+  <% end %> 
   <% end %>
-  <% last_i = iii - 1 %>
+
+  <br><br>
+
+    <div class="form-row">
+    <div class="form-group">
+      <label>予約枠数 <span class="required">必須</span></label>
+      <%= f.text_field :rsv_n, class: "form-input", 
+          placeholder:"枠数を指定（半角数字）", maxlength:"3" %>
+    </div>      
+    <div class="form-group">
+      <label>時間帯 <span class="optional">任意</span></label>
+      <%= f.collection_select(:rsv_time_id, RsvTime.all, :id, :name,
+          {}, {class:"select-box", id:"rsv-time"}) %>
+    </div>
+    <div class="form-group">
+      <label>種別 <span class="optional">任意</span></label>
+      <%= f.collection_select(:service_type_id, ServiceType.all, :id, :name,
+          {}, {class:"select-box", id:"service-type"}) %>
+    </div>
+    </div>
+    
+    <div class="form-group">
+      <label>説明 <span class="optional">任意</span></label>
+      <%= f.text_field :explain, class: "form-input", 
+          placeholder:"簡単な説明をご記入ください（２０文字以内）", rows:"2", maxlength:"20" %>
+    </div>
+
+    <div class="form-row">
+    <div class="form-group">
+      <label>上限人数 <span class="optional">任意</span></label>
+      <%= f.text_field :upper_people_n, class: "form-input", 
+          placeholder:"お客様の上限人数", maxlength:"20" %>
+    </div>
+    <div class="form-group">
+      <label>料金 <span class="optional">任意</span></label>
+      <%= f.text_field :fee, class: "form-input", 
+          placeholder:"設定料金", maxlength:"20" %>
+    </div>   
+    </div> 
+
+    <div class="form-actions">
+      <%= f.submit "登録する", class: "submit-btn" %>
+      <%= link_to 'もどる', store_calendar_path(@store.id, @calendar.id), class: "back-btn" %>
+    </div>
+
+    <div class = "hidden"> 表示されない⇒paramsに格納される
+      <%= f.text_area :one_day_y, value: one_day_y %>
+      <%= f.text_area :one_day_m, value: one_day_m %>
+      <%= f.text_area :last_i, value: last_i %>
+    </div>
+
   <% end %>
-  </div>
-<% end %>
-  
-  <br>
-
-  <div class="weight-bold-text">
-    予約枠数
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_field :rsv_n, class:"items-text", placeholder:"枠数を指定（半角数字）" %>
-
-  <div class="weight-bold-text">
-    時間帯
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.collection_select(:rsv_time_id, RsvTime.all, :id, :name,
-      {}, {class:"select-box", id:"item-category"}) %>
-
-  <div class="weight-bold-text">
-    サービス種別
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.collection_select(:service_type_id, ServiceType.all, :id, :name,
-      {}, {class:"select-box", id:"item-category"}) %>
-
-  <div class="weight-bold-text">
-    説明
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.text_area :explain, class:"items-text", 
-      id:"item-name", placeholder:"簡単な説明をご記入ください（２０文字以内）", maxlength:"20" %>
-
-  <div class="weight-bold-text">
-    人数上限
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.text_field :upper_people_n, class:"items-text", 
-      id:"item-name", placeholder:"お客様の上限人数", maxlength:"3" %>
-
-  <div class="weight-bold-text">
-    料金
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.text_field :fee, class:"items-text", 
-      id:"item-name", placeholder:"設定料金", maxlength:"10" %>
-
-  <div class="sell-btn-contents">
-    <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', store_calendar_path(@store.id, @calendar.id), class:"back-btn" %>
-  </div>
-  
-  <div class = "hidden"> 表示されない⇒paramsに格納される
-  <%= f.text_area :one_day_y, value: one_day_y %>
-  <%= f.text_area :one_day_m, value: one_day_m %>
-  <%= f.text_area :last_i, value: last_i %>
-  </div>
-
-<% end %>
+</div>

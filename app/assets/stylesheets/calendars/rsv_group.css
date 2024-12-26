@@ -1,6 +1,9 @@
 
+.mini-daybox-row .mini-week-row{
+  width: 100%;
+}
+
 .mini-week-row{
-  width: 400px;
   display: flex;
   justify-content: center;
   align-items: center; 
@@ -27,19 +30,19 @@
 }
 
 .mini-daybox-row{
-  width: 400px;
   display:flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
 .mini-daybox-sun, .mini-daybox, .mini-daybox-sat{
   width: 50px;
-  height: 50px;
+  height: 45px;
   border: 1px gray solid;
   border-radius: 5px;
   text-align: center;
+  padding: 5px 0 0 0;
 }
 
 .mini-daybox-sun{

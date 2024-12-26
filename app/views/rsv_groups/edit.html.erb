@@ -1,70 +1,73 @@
 
 <%= render 'layouts/header' %>
 
-<h3>一括編集ページ</h3>
-
 <% @reservation = @reservations[0] %>
+
+<div class="form-container">
+
+<h1 class="form-title">予約枠の一括編集</h1>
 
 <%= form_with model: [@store, @reservation], url: store_calendar_rsv_group_path(@store.id, @calendar.id, @rsv_group.id) , local: true do |f| %>
 
-  <div class="weight-bold-text">
-    編集対象日付<br>
+  <div class="form-group">
+    <label>編集対象日付</label>
+    <div class = "editted">
     <% i = 0 %>
     <% @reservations.each do |rsv| %>
       <% m = rsv.rsv_date.month %>
       <% d = rsv.rsv_date.day %>
-      <%= "[ #{m}/#{d} ]  " %>
+      <div class ="editted-box">
+        <%= "#{m}/#{d}" %>
+      </div>
       <% i += 1 %>
-      <% if (i % 5) == 0 %>
+      <% if (i % 7) == 0 %>
         <br>
       <% end %>
     <% end %> 
+    </div>
   </div><br>
 
-  <div class="weight-bold-text">
-    予約枠数
-    <span class="indispensable">必須</span>
-  </div>
-  <%= f.text_area :rsv_n, class:"items-text", placeholder:"枠数を指定（半角数字）" %>
+    <div class="form-row">
+    <div class="form-group">
+      <label>予約枠数 <span class="required">必須</span></label>
+      <%= f.text_field :rsv_n, class: "form-input", 
+          placeholder:"枠数を指定（半角数字）", maxlength:"3" %>
+    </div>      
+    <div class="form-group">
+      <label>時間帯 <span class="optional">任意</span></label>
+      <%= f.collection_select(:rsv_time_id, RsvTime.all, :id, :name,
+          {}, {class:"select-box", id:"rsv-time"}) %>
+    </div>
+    <div class="form-group">
+      <label>種別 <span class="optional">任意</span></label>
+      <%= f.collection_select(:service_type_id, ServiceType.all, :id, :name,
+          {}, {class:"select-box", id:"service-type"}) %>
+    </div>
+    </div>
+    
+    <div class="form-group">
+      <label>説明 <span class="optional">任意</span></label>
+      <%= f.text_field :explain, class: "form-input", 
+          placeholder:"簡単な説明をご記入ください（２０文字以内）", rows:"2", maxlength:"20" %>
+    </div>
 
-  <div class="weight-bold-text">
-    時間帯
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.collection_select(:rsv_time_id, RsvTime.all, :id, :name,
-      {}, {class:"select-box", id:"item-category"}) %>
+    <div class="form-row">
+    <div class="form-group">
+      <label>上限人数 <span class="optional">任意</span></label>
+      <%= f.text_field :upper_people_n, class: "form-input", 
+          placeholder:"お客様の上限人数", maxlength:"20" %>
+    </div>
+    <div class="form-group">
+      <label>料金 <span class="optional">任意</span></label>
+      <%= f.text_field :fee, class: "form-input", 
+          placeholder:"設定料金", maxlength:"20" %>
+    </div>   
+    </div> 
 
-  <div class="weight-bold-text">
-    サービス種別
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.collection_select(:service_type_id, ServiceType.all, :id, :name,
-      {}, {class:"select-box", id:"item-category"}) %>
+    <div class="form-actions">
+      <%= f.submit "更新する", class: "submit-btn" %>
+      <%= link_to 'もどる', store_reservation_path(@store.id, @reservation.id), class: "back-btn" %>
+    </div>
 
-  <div class="weight-bold-text">
-    説明
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.text_area :explain, class:"items-text", 
-      id:"item-name", placeholder:"簡単な説明をご記入ください（２０文字以内）", maxlength:"20" %>
-
-  <div class="weight-bold-text">
-    人数上限
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.text_area :upper_people_n, class:"items-text", 
-      id:"item-name", placeholder:"お客様の上限人数", maxlength:"3" %>
-
-  <div class="weight-bold-text">
-    料金
-    <span class="indispensable">必須でない</span>
-  </div>
-  <%= f.text_area :fee, class:"items-text", 
-      id:"item-name", placeholder:"設定料金", maxlength:"10" %>
-
-  <div class="sell-btn-contents">
-    <%= f.submit "登録する" ,class:"sell-btn" %>
-    <%= link_to 'もどる', store_reservation_path(@store.id, @reservation.id), class:"back-btn" %>
-  </div>
-
-<% end %>
+  <% end %>
+</div>

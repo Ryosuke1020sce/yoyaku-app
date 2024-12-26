@@ -11,6 +11,29 @@
 }
 
 /* フォームのタイトル */
+
+.form-row{
+  display: flex;
+  justify-content: space-between;
+}
+
+.editted{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.editted-box{
+  width: 50px;
+  padding: 10px;
+  margin: 5px 5px 5px;
+  border: 1px solid rgb(164, 164, 164);
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+
 .form-title {
   text-align: center;
   margin-bottom: 20px;
@@ -62,7 +85,16 @@
   box-sizing: border-box;
 }
 
-.form-input:focus {
+.select-box{
+  width: 150px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-input:focus, .select-box:focus {
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
