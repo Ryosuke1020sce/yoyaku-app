@@ -6,29 +6,45 @@
 <% m = cal.std_date.month %>
 <% s = @store %>
 
-<h3>
+<h3 class="center-box">
   <%= "#{y}年#{m}月 予約状況一覧" %>
 </h3>
 
-<% @reservations.each do |rsv| %>
-  <% d = rsv.rsv_date %>
-  <% if d.year == y && d.month == m %>
-    <% guests = Guest.where(reservation_id: rsv.id) %>
-    <div>
-      <div>
-        <%= "#{rsv.rsv_date} の予約枠：#{rsv.rsv_n}枠／#{guests.count}組様" %>
-      </div>
-      <% if guests != nil %>
-        <% guests.each do |g| %>
-          <div>
-          <%= link_to "#{g.name} 様（#{g.people_n}名様）", store_reservation_guest_path(s.id, rsv.id, g.id) %>
-          </div>
-        <% end %>
-      <% end %>
-      <br>
-    </div>
-  <% end %>
-<% end %>
+<div class="back-btn-container">
+<%= link_to "もどる", store_calendar_path(s.id, cal.id), class: "back-btn" %>
+</div>
 
-<%= link_to "もどる", store_calendar_path(s.id, cal.id) %>
+<div class="reservations-container">
+  <% @reservations.each do |rsv| %>
+    <% d = rsv.rsv_date %>
+    <% if d.year == y && d.month == m %>
+      <% guests = Guest.where(reservation_id: rsv.id) %>
+      
+      <!-- 1日の予約枠と予約者一覧のグループ -->
+      <div class="reservation-group">
+        <!-- 左側: 予約枠詳細 -->
+        <div class="reservation-details2">
+          <h4><%= "#{rsv.rsv_date} の予約枠" %></h4>
+          <p>予約枠数: <%= rsv.rsv_n %></p>
+          <p>現在の予約: <%= guests.count %>組</p>
+        </div>
+
+        <!-- 右側: ご予約のお客様一覧 -->
+        <div class="reservation-guests">
+          <% if guests.present? %>
+            <div class="guest-grid">
+              <% guests.each do |g| %>
+                <div class="guest-item">
+                  <%= link_to "#{g.name}様 (#{g.people_n}名)", store_reservation_guest_path(s.id, rsv.id, g.id) %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p>予約者はいません</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 

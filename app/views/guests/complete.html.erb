@@ -1,4 +1,7 @@
-<div>予約が完了しました！</div>
+<div class="guest-show">
+<div class="guest-card">
+
+<div><b>予約が完了しました！</b></div>
 <br>
 
 <% g = @guest %>
@@ -6,20 +9,31 @@
 <% s = r.store %>
 <% n = g.rsv_number %>
 
-<div><%= "お名前：#{g.name} 様" %></div>
-<div><%= "メールアドレス：#{g.mail}" %></div>
-<div><%= "電話番号：#{g.tel}" %></div>
-<div><%= "お客様人数：#{g.people_n}" %></div>
+  <% array = [["お名前", "メールアドレス", "お電話番号", "お客様人数"],
+              [g.name, g.mail, g.tel, g.people_n],
+              ["様","",""," 名様"]] %> 
+  
+  <% 4.times do |i| %>
+    <% if (array[1][i] != "") && (array[1][i] != nil) %>
+      <div><%= "#{array[0][i]}：#{array[1][i]}#{array[2][i]}" %></div>
+    <% end %>
+  <% end %>
 
+<br>
 <div><%= "ご予約日：#{japan_date(r.rsv_date)}" %></div>
 <div><%= "店舗名：#{s.store_name}" %></div>
 
 <br>
-<div><%= "ご予約番号：　#{n.unique_number}　" %></div>
-<br>
+  <% if n != nil %>
+    <div><%= "ご予約番号：　#{n.unique_number}　" %></div>
+    <br>
+  <% end %>
 <div>※ご予約番号は予約確認の際に必要となりますので、スクリーンショット等で保存してください。</div>
 <div>　ただし、ご来店時には必要ありません。</div>
 
 <br>
 <div>お客様のご来店を心よりお待ちしております。</div>
 <div>当日はお気をつけてお越しくださいませ。</div>
+
+</div>
+</div>
