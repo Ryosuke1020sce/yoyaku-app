@@ -29,6 +29,9 @@ class GuestsController < ApplicationController
 
   def complete
     @guest = Guest.find(params[:id])
+    if @guest.mail != nil
+      RsvMailer.complete_email(@guest).deliver_now
+    end
   end
   
   def dammy_rsv

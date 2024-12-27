@@ -37,7 +37,17 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com', # 自分のドメインに変更
+    user_name: ENV["GMAIL_USER_NAME"], # 自分のGmailアドレス
+    password: ENV["GMAIL_PASSWORD"], # アプリパスワードをGmailアカウントで取得
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
 
   config.action_mailer.perform_caching = false
 

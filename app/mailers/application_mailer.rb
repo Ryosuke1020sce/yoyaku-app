@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  helper :application # ApplicationHelper をインクルード
+  default from: "Ryosuke Development"
   layout "mailer"
 end
